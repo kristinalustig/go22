@@ -1,0 +1,11 @@
+inspect
+unlock
+lock
+open
+close
+read
+smell
+pick up
+taste
+go to
+press
