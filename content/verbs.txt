@@ -5,7 +5,11 @@ open
 close
 read
 smell
-pick up
 taste
-go to
 press
+turnoff
+turnon
+play
+listen
+notes
+help

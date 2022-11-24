@@ -1,0 +1,40 @@
+corkboard
+map
+calendar
+polaroid
+tickets
+post-its
+chest
+lock
+lamp
+desk
+pink desk drawer
+purple desk drawer
+flower
+telephone
+answering machine
+painting
+window
+curtains
+stool
+garbage
+lamp outlet
+desk outlet
+lamp plug
+book
+pen
+envelope
+letter
+receipt
+key
+lined paper
+vase
+telephone receiver
+backpack
+ski cap
+boots
+clothing
+guidebook
+sleeping bag
+carpet
+messages

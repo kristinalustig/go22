@@ -1,89 +1,67 @@
-local utf8 = require("utf8")
 local G = require("grammar")
-local S = require("suggestions")
+local TE = require("textEntry")
+local SC = require("sceneContent")
 lg = love.graphics
+
+local scale, tx, ty
+
+Scenes = {
+    TITLE_SCREEN = 1,
+    INTRO_BRIEFING = 2,
+    INTRO_COMIC = 3,
+    INVESTIGATION_1 = 4,
+    NOTEBOOK = 5,
+    DIARY = 6,
+    CALENDAR = 7,
+    MAP = 8,
+    DEBRIEFING_1 = 9,
+    GAME_OVER = 10
+}
 
 function love.load()
   
-  G.loadContentOnStart()
-  S.init()
+
   
-  background = lg.newImage("/assets/background.png")
-  text = "type here"
-  love.keyboard.setKeyRepeat(true)
-  maxChars = 20
-  charCount = 0
-  textHistory = {}
-  textSize = 24
-  maxTableSize = 5
-  textInputY = 580
+  color = {.65, .79, .35}
+  
+  G.loadContentOnStart()
+  TE.init()
+  SC.loadAssetsOnStart()
+
 
 end
 
 function love.update(dt)
-  
-  S.updateSuggestions(text)
-  
+
+  TE.updateText()
+  scale, tx, ty = SC.updateDraw()
+
 end
 
 function love.draw()
   
   lg.scale(.3, .3)
   lg.translate(1500, 0)
-  lg.draw(background)
+  --special addtl scale and translate for zooming on areas of screen
+  lg.scale(scale, scale)
+  lg.translate(tx, ty)
+  SC.draw()
   lg.reset()
   
-  lg.printf(text, 20, textInputY, 400, "left")
-  local textPosition = textInputY - (textSize * 1)
-  for k, v in ipairs(textHistory) do
-    lg.printf(v, 20, textPosition, 200, "left")
-    textPosition = textPosition - textSize
-  end
-  
-  S.drawSuggestions()
+  SC.drawUi()
+  TE.drawText()
+  lg.reset()
   
 end
 
 function love.textinput(t)
   
-  text = text .. t
+  TE.textInput(t)
   
 end
 
 function love.keypressed(key)
   
-  
-  text = S.handleSuggestionState(text, key == "tab")
-  
-  --send command
-  if key == "return" then
-    lopOffEndOfTable()
-    table.insert(textHistory, 1, text)
-    charCount = 0
-    text = ""
-    love.keyboard.setTextInput(true)
-  --remove last latter 
-  elseif key == "backspace" then
-    local byteoffset = utf8.offset(text, -1)
-    if byteoffset then
-      text = string.sub(text, 1, byteoffset - 1)
-      charCount = charCount - 1
-      love.keyboard.setTextInput(true)
-    end
-    isTabbingThru = false
-  elseif charCount >= maxChars then
-    love.keyboard.setTextInput(false)
-  else
-    charCount = charCount + 1
-  end
-    
-end
-
-function lopOffEndOfTable()
-  
-  if #textHistory > maxTableSize then
-    table.remove(textHistory, #textHistory)
-  end
+  TE.handleKeyPressed(key)
   
 end
-

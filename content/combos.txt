@@ -1,0 +1,204 @@
+inspect; corkboard; An oversized corkboard nailed to the wall. It's covered with ephemera.; nil
+inspect; map; A map of town. It has a gridded alphanumeric system.; sceneChange; map
+inspect; calendar; It's turned to the current month, and has handwritten appointments.; sceneChange; calendar
+inspect; polaroid; A photo of a nervous-looking woman with a man in the background.; clue; polaroid
+inspect; tickets; x; clue; tickets
+inspect; post-its; x; zoom; post-its
+inspect; chest; x; nil
+inspect; lock; x; nil
+inspect; lamp; x; nil
+inspect; desk; x; zoom; desk
+inspect; pink desk drawer; x; nil
+inspect; purple desk drawer; x; nil
+inspect; flower; x; clue; flower
+inspect; telephone; x; nil
+inspect; answering machine; x; nil
+inspect; painting; x; clue; painting
+inspect; window; x; nil
+inspect; curtains; x; nil
+inspect; stool; x; nil
+inspect; garbage; x; nil
+inspect; lamp outlet; x; nil
+inspect; desk outlet; x; nil
+inspect; lamp plug; x; nil
+inspect; book; x; nil
+inspect; pen; x; nil
+inspect; envelope; x; nil
+inspect; letter; x; nil
+inspect; receipt; x; nil
+inspect; key; x; nil
+inspect; lined paper; x; nil
+inspect; vase; x; nil
+inspect; telephone receiver; x; nil
+inspect; backpack; x; nil
+inspect; ski cap; x; nil
+inspect; boots; x; nil
+inspect; clothing; x; nil
+inspect; guidebook; x; nil
+inspect; sleeping bag; x; nil
+inspect; carpet; x; nil
+inspect; messages; x; nil
+inspect; stickers; x; nil
+unlock; chest; x; nil
+unlock; lock; x; nil
+unlock; pink desk drawer; x; nil
+unlock; purple desk drawer; x; nil
+unlock; backpack; x; nil
+lock; chest; x; nil
+lock; lock; x; nil
+lock; pink desk drawer; x; nil
+lock; purple desk drawer; x; nil
+lock; backpack; x; nil
+open; chest; x; nil
+open; lock; x; nil
+open; desk; x; nil
+open; pink desk drawer; x; nil
+open; purple desk drawer; x; nil
+open; window; x; nil
+open; curtains; x; nil
+open; book; x; nil
+open; envelope; x; nil
+open; backpack; x; nil
+close; chest; x; nil
+close; lock; x; nil
+close; desk; x; nil
+close; pink desk drawer; x; nil
+close; purple desk drawer; x; nil
+close; telephone; x; nil
+close; answering machine; x; nil
+close; window; x; nil
+close; curtains; x; nil
+close; book; x; nil
+close; envelope; x; nil
+close; backpack; x; nil
+read; corkboard; x; nil
+read; map; x; nil
+read; calendar; x; nil
+read; polaroid; x; nil
+read; tickets; x; nil
+read; post-its; x; nil
+read; chest; x; nil
+read; stickers; x; nil
+read; book; x; nil
+read; envelope; x; nil
+read; letter; x; nil
+read; receipt; x; nil
+read; lined paper; x; nil
+read; guidebook; x; nil
+read; messages; x; nil
+smell; corkboard; x; nil
+smell; map; x; nil
+smell; calendar; x; nil
+smell; polaroid; x; nil
+smell; tickets; x; nil
+smell; post-its; x; nil
+smell; chest; x; nil
+smell; lock; x; nil
+smell; lamp; x; nil
+smell; desk; x; nil
+smell; pink desk drawer; x; nil
+smell; purple desk drawer; x; nil
+smell; flower; x; nil
+smell; telephone; x; nil
+smell; answering machine; x; nil
+smell; painting; x; nil
+smell; window; x; nil
+smell; curtains; x; nil
+smell; stool; x; nil
+smell; garbage; x; nil
+smell; lamp outlet; x; nil
+smell; desk outlet; x; nil
+smell; lamp plug; x; nil
+smell; book; x; nil
+smell; pen; x; nil
+smell; envelope; x; nil
+smell; letter; x; nil
+smell; receipt; x; nil
+smell; key; x; nil
+smell; lined paper; x; nil
+smell; vase; x; nil
+smell; telephone receiver; x; nil
+smell; backpack; x; nil
+smell; ski cap; x; nil
+smell; boots; x; nil
+smell; clothing; x; nil
+smell; guidebook; x; nil
+smell; sleeping bag; x; nil
+smell; carpet; x; nil
+smell; messages; x; nil
+smell; stickers; x; nil
+taste; corkboard; x; nil
+taste; map; x; nil
+taste; calendar; x; nil
+taste; polaroid; x; nil
+taste; tickets; x; nil
+taste; post-its; x; nil
+taste; chest; x; nil
+taste; lock; x; nil
+taste; lamp; x; nil
+taste; desk; x; nil
+taste; pink desk drawer; x; nil
+taste; purple desk drawer; x; nil
+taste; flower; x; nil
+taste; telephone; x; nil
+taste; answering machine; x; nil
+taste; painting; x; nil
+taste; window; x; nil
+taste; curtains; x; nil
+taste; stool; x; nil
+taste; garbage; x; nil
+taste; lamp outlet; x; nil
+taste; desk outlet; x; nil
+taste; lamp plug; x; nil
+taste; book; x; nil
+taste; pen; x; nil
+taste; envelope; x; nil
+taste; letter; x; nil
+taste; receipt; x; nil
+taste; key; x; nil
+taste; lined paper; x; nil
+taste; vase; x; nil
+taste; telephone receiver; x; nil
+taste; backpack; x; nil
+taste; ski cap; x; nil
+taste; boots; x; nil
+taste; clothing; x; nil
+taste; guidebook; x; nil
+taste; sleeping bag; x; nil
+taste; carpet; x; nil
+taste; messages; x; nil
+taste; stickers; x; nil
+press; chest; x; nil
+press; lock; x; nil
+press; lamp; x; nil
+press; pink desk drawer; x; nil
+press; purple desk drawer; x; nil
+press; telephone; x; nil
+press; answering machine; x; nil
+press; lamp outlet; x; nil
+press; desk outlet; x; nil
+press; telephone receiver; x; nil
+press; messages; x; nil
+turn off; lamp; x; nil
+turn off; telephone; x; nil
+turn off; answering machine; x; nil
+turn off; lamp outlet; x; nil
+turn off; desk outlet; x; nil
+turn off; lamp plug; x; nil
+turn off; telephone receiver; x; nil
+turn off; messages; x; nil
+turn on; lamp; x; nil
+turn on; telephone; x; nil
+turn on; answering machine; x; nil
+turn on; lamp outlet; x; nil
+turn on; desk outlet; x; nil
+turn on; lamp plug; x; nil
+turn on; telephone receiver; x; nil
+turn on; messages; x; nil
+play; messages; x; nil
+play; answering machine; x; nil
+listen; messages; x; nil
+listen; window; x; nil
+listen; telephone; x; nil
+listen; answering machine; x; nil
+listen; telephone receiver; x; nil

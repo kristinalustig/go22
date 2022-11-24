@@ -1,9 +1,10 @@
 S = {}
 G = require "grammar"
+SC = require "sceneContent"
 
 local suggestionsPos
 local suggestions
-local isTabbingSuggs
+movedToNouns = false
 
 function S.init()
   
@@ -12,9 +13,20 @@ function S.init()
   
 end
 
-function S.handleSuggestionState(t, isTab)
+function S.clearSuggestions()
   
-  if isTab then
+  suggestions = {}
+  
+end
+
+
+function S.handleSuggestionState(t, key)
+  
+  if key == "space" then
+    movedToNouns = true
+    suggestionsPos = 0
+    return t
+  elseif key == "tab" then
     if suggestionsPos >= #suggestions then
       suggestionsPos = 0
     end
@@ -24,7 +36,12 @@ function S.handleSuggestionState(t, isTab)
   end
   
   if suggestionsPos > 0 and suggestionsPos <= #suggestions then
-    return suggestions[suggestionsPos]
+    if movedToNouns then
+      local t = string.sub(t, 1, t:find(" "))
+      return t ..suggestions[suggestionsPos]
+    else
+      return suggestions[suggestionsPos]
+    end
   else
     return t
   end
@@ -35,8 +52,18 @@ function S.updateSuggestions(t)
   if suggestionsPos > 0 then return suggestions end
   
   suggestions = {}
-  for k, v in ipairs(G.verbs) do
-    if string.len(t) >= 1 and string.match(v, t:lower()) then
+  local startSuggsAt = 0
+  
+  local suggTable = {}
+  if movedToNouns then
+    startSuggsAt = 1
+    suggTable = G.nouns
+    t = string.sub(t, t:find(" ")+1)
+  else
+    suggTable = G.verbs
+  end
+  for k, v in ipairs(suggTable) do
+    if string.len(t) > startSuggsAt and string.match(v, t:lower()) then
       table.insert(suggestions, v)
     end
   end
@@ -46,9 +73,12 @@ function S.updateSuggestions(t)
 end
 
 function S.drawSuggestions()
-  
+  SC.setSuggestionsFont()
+  local suggnum = 0
+  local yVal = 14
   for k, v in ipairs(suggestions) do
-    lg.printf(v, 20, 20*k, 400, "left")
+    lg.printf(v, 40+(150*math.floor(suggnum/4)), 610 + yVal*(suggnum%4), 200, "left")
+    suggnum = suggnum + 1
   end
   
 end
