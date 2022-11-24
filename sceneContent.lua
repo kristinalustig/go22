@@ -2,8 +2,11 @@ SC = {}
 
 local background
 local titlePage
-local comicPage
+local comicPage1
+local comicPage2
+local comicPage3
 local briefingScreen
+local briefingText
 local notebook
 local openCurtains
 local closedCurtains
@@ -18,25 +21,40 @@ local ui
 local consoleColor
 
 local item
+
 local gameFont
 local uiLabel
+local briefingFont
 
 local currentScene
+local midFade
+local comicNum
+
 
 function SC.loadAssetsOnStart()
   
   gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 18)
   uiLabel = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 12)
+  briefingFont = lg.newFont("/assets/fonts/CrimsonText-Regular.ttf", 30)
   
   background = lg.newImage("/assets/background.png")
   notebook = lg.newImage("/assets/notebook.png")
   map = lg.newImage("/assets/map.png")
   calendar = lg.newImage("/assets/calendar.png")
   ui = lg.newImage("/assets/ui.png")
+  titlePage = lg.newImage("/assets/title.png")
+  briefingText = lg.newImage("/assets/briefingText.png")
+  briefingScreen = lg.newImage("/assets/briefing.png")
+  comicPage1 = lg.newImage("/assets/story.png")
+  comicPage2 = lg.newImage("/assets/story2.png")
+  comicPage3 = lg.newImage("/assets/story3.png")
     
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
+  midFade = 1
+  comicNum = 1
+  
   currentScene = Scenes.INVESTIGATION_1
   
 end
@@ -44,6 +62,12 @@ end
 function SC.getCurrentScene()
   
   return currentScene
+  
+end
+
+function SC.setCurrentScene(s)
+  
+  currentScene = s
   
 end
 
@@ -61,7 +85,51 @@ function SC.draw()
   
 end
 
+function SC.checkFades()
+  
+  return midFade <= 0
+  
+end
+
+function SC.incrementComic()
+  
+  if comicNum < 3 then
+    comicNum = comicNum + 1
+  else
+    currentScene = Scenes.INVESTIGATION_1
+  end
+end
+
 function SC.drawUi()
+  
+  if currentScene == Scenes.TITLE then
+    lg.draw(titlePage)
+    return
+  elseif currentScene == Scenes.INTRO_BRIEFING then
+    lg.draw(briefingScreen)
+    if midFade <= 0 then
+      lg.draw(briefingText)
+    else
+      midFade = midFade - .01
+      lg.setColor(0, 0, 0, midFade)
+      lg.rectangle("fill", 0, 0, 1400, 700)
+    end
+    return
+  elseif currentScene == Scenes.INTRO_COMIC then
+    midFade = 1
+    if comicNum == 1 then
+      lg.draw(comicPage1)
+    elseif comicNum == 2 then
+      lg.draw(comicPage2)
+    else
+      lg.draw(comicPage3)
+    end
+    return
+  elseif currentScene == Scenes.DEBRIEFING_1 then
+    lg.draw(briefingScreen)
+    lg.draw(briefingText)
+    return
+  end
   
   lg.draw(ui)
   lg.setColor(consoleColor)
@@ -76,6 +144,12 @@ function SC.drawUi()
     N.drawClues()
   end
   
+  if midFade >= 0 then
+    midFade = midFade - .01
+    lg.setColor(0, 0, 0, midFade)
+    lg.rectangle("fill", 0, 0, 1400, 700)
+  end
+  
 end
 
 function SC.setSuggestionsFont()
@@ -85,6 +159,11 @@ end
 function SC.setTextFont()
   lg.setColor(consoleColor)
   lg.setFont(gameFont)
+end
+
+function SC.setDialogFont()
+  lg.setColor(0,0,0)
+  lg.setFont(briefingFont)
 end
 
 function SC.executeAction(action, obj)
@@ -109,6 +188,8 @@ function SC.executeAction(action, obj)
     item = "notebook"
     currentScene = Scenes.NOTEBOOK
     return "*Opening notebook...*"
+  elseif action == "station" then
+    currentScene = Scenes.DEBRIEFING_1
   end
 end
 

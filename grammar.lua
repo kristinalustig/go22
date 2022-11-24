@@ -9,6 +9,11 @@ G.nouns = {}
 
 G.combos = {}
 
+G.dialog = {}
+
+local currentDialogPosition = 1
+local waitOnScreen = 200
+
 G.specialCommands = {
   "help", "notes", "back", "reset"
   }
@@ -29,6 +34,10 @@ function G.loadContentOnStart()
   
   for line in love.filesystem.lines("content/combos.txt") do
     table.insert(G.combos, G.splitLinesBySemicolon(line))
+  end
+  
+  for line in love.filesystem.lines("content/dialog.txt") do
+    table.insert(G.dialog, line)
   end
   
 end
@@ -52,6 +61,35 @@ function G.checkMatches(t)
   end
   
   return "You can't do that."
+  
+end
+
+function G.drawDialog(num)
+  
+  local scene = SC.getCurrentScene()
+  
+  if scene == Scenes.INTRO_BRIEFING or scene == Scenes.DEBRIEFING_1 then
+    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 600, "left")
+  elseif scene == Scenes.INTRO_COMIC then
+    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 40, 620, 1200, "left")
+  end
+  
+  if currentDialogPosition < string.len(G.dialog[num]) then
+    currentDialogPosition = currentDialogPosition + 1
+  else
+    waitOnScreen = waitOnScreen - 1
+    if waitOnScreen <= 0 then
+      waitOnScreen = 200
+      return true
+    end
+  end
+  return false
+  
+end
+
+function G.resetCurrDiagNum()
+  
+  currentDialogPosition = 1
   
 end
 

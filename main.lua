@@ -20,14 +20,9 @@ Scenes = {
 
 function love.load()
   
-
-  
-  color = {.65, .79, .35}
-  
   G.loadContentOnStart()
   TE.init()
   SC.loadAssetsOnStart()
-
 
 end
 
@@ -35,6 +30,7 @@ function love.update(dt)
 
   TE.updateText()
   scale, tx, ty = SC.updateDraw()
+  SC.checkFades()
 
 end
 

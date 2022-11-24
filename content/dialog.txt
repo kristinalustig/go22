@@ -1,0 +1,15 @@
+Greetings, agent. Apologies for calling you in on such short notice, but we've got a situation here. (Type 'next' to continue.)
+One of our finest operatives, codenamed Agent Sparrow, didn't make her scheduled rendevous last night.
+It was the first such check-in in one month, so she could be anywhere. That's where you come in.
+We need to keep a low profile, so you'll be using the Fly Spy to enter Sparrow's home and look for clues.
+You need to find clues to answer several questions about her field name, what happened to her, and who's involved.
+You'll be able to read more about the case requirements while you're on your mission.
+You'll be navigating this mission using a text interface - no mouse required. Just like now!
+Are you ready? If so, type 'ready'. If not, type 'repeat' to hear this all from the top. I'm expecting good things from you, agent. Report back ASAP.
+You climb into the Fly Spy - a shrinkable drone meant to carry one field agent.
+The Fly Spy shrinks down, readying you for your mission.
+Shrunk down and ready to investigate, your handler drops you off. You head for Sparrow's open window.
+Welcome back, agent. I'm hoping you have all the answers we need to get Agent Sparrow back.
+If you aren't ready, you can type 'back' at any point to go back to the investigation.
+First thing's first: what name is Agent Sparrow using in the field? Type her full name, first and last.
+ 
