@@ -12,12 +12,18 @@ local openCurtains
 local closedCurtains
 local lightOn
 local chestLid
-local chestLock
 local pinkDrawerOpen
 local purpleDrawerOpen
 local map
 local calendar
 local ui
+local diary
+local letter
+local bgWithOverlay
+local bgWIthDrawerOpen
+local lightPluggedIn
+local lightPlugOut
+
 local consoleColor
 
 local item
@@ -30,10 +36,18 @@ local currentScene
 local midFade
 local comicNum
 
+--important "special" states for investigation 1. janky, I know.
+local pinkDrawerIsOpen
+local purpleDrawerIsOpen
+local lightIsOn
+local chestIsOpen
+local curtainsAreOpen
+
+local errorText
 
 function SC.loadAssetsOnStart()
   
-  gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 18)
+  gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 16)
   uiLabel = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 12)
   briefingFont = lg.newFont("/assets/fonts/CrimsonText-Regular.ttf", 30)
   
@@ -48,12 +62,30 @@ function SC.loadAssetsOnStart()
   comicPage1 = lg.newImage("/assets/story.png")
   comicPage2 = lg.newImage("/assets/story2.png")
   comicPage3 = lg.newImage("/assets/story3.png")
-    
+  openCurtains = lg.newImage("/assets/curtains-open.png")
+  closedCurtains = lg.newImage("/assets/curtains-shut.png")
+  lightOn = lg.newImage("/assets/light-rays.png")
+  chestLid = lg.newImage("/assets/chest-lid.png")
+  pinkDrawerOpen = lg.newImage("/assets/drawer-open-pink.png")
+  purpleDrawerOpen = lg.newImage("/assets/drawer-open-purple.png")
+  diary = lg.newImage("/assets/diary.png")
+  letter = lg.newImage("/assets/letter.png")
+  bgWithOverlay = lg.newImage("/assets/bg-overlay-drawer.png")
+  bgWIthDrawerOpen = lg.newImage("/assets/bg-drawer-open.png")
+  lightPluggedIn = lg.newImage("/assets/lamp-plugged-in.png")
+  lightPlugOut = lg.newImage("/assets/lamp-unplugged.png")
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
   midFade = 1
   comicNum = 1
+  errorText = "You shouldn't have been able to see this message."
+  
+  pinkDrawerIsOpen = false
+  purpleDrawerIsOpen = false
+  lightIsOn = true
+  chestIsOpen = false
+  curtainsAreOpen = true
   
   currentScene = Scenes.INVESTIGATION_1
   
@@ -71,10 +103,47 @@ function SC.setCurrentScene(s)
   
 end
 
+function SC.getNumLines(t, w)
+  
+  local _, text = gameFont:getWrap(t, w)
+  return #text
+  
+end
+
 function SC.draw()
   
   if currentScene == Scenes.INVESTIGATION_1 then
     lg.draw(background)
+    if purpleDrawerIsOpen then
+      lg.draw(purpleDrawerOpen)
+    end
+    if pinkDrawerIsOpen then
+      lg.draw(pinkDrawerIsOpen)
+    end
+    if curtainsAreOpen then
+      lg.draw(openCurtains)
+    else
+      lg.draw(closedCurtains)
+    end
+    if not chestIsOpen then
+      lg.draw(chestLid)
+    end
+    if not lightIsOn and not curtainsAreOpen then
+      if purpleDrawerIsOpen then
+        lg.setColor(0, 0, 0, .3)
+        lg.rectangle(0, 0, 800, 700)
+        lg.draw(bgWIthDrawerOpen)
+      else
+        lg.draw(bgWithOverlay)
+      end
+    end
+    if lightIsOn then
+      lg.draw(lightPluggedIn)
+      lg.draw(lightOn)
+    else
+      lg.draw(lightPlugOut)
+    end
+    
   elseif currentScene == Scenes.NOTEBOOK then
     lg.draw(notebook)
   elseif currentScene == Scenes.MAP then
@@ -103,6 +172,9 @@ end
 function SC.drawUi()
   
   if currentScene == Scenes.TITLE then
+    lg.draw(titlePage)
+    return
+  elseif currentScene == Scenes.HELP then
     lg.draw(titlePage)
     return
   elseif currentScene == Scenes.INTRO_BRIEFING then
@@ -166,24 +238,29 @@ function SC.setDialogFont()
   lg.setFont(briefingFont)
 end
 
-function SC.executeAction(action, obj)
+function SC.executeAction(action, obj, state)
+  
+  if action == "1223" then
+    chestIsOpen = true
+    return ("You unlocked the chest!")
+  end
   
   if action == "reset" then
     item = ""
     currentScene = Scenes.INVESTIGATION_1
+  elseif action == "help" then
+    currentScene = Scenes.HELP
   elseif action == "clue" then
-    --register a clue in the notebook
     N.add(obj)
     --play a clue found sound
     --blink the notebook
   elseif action == "zoom" then
-    --zoom in on item (aka use an appropriately sized screenshot? lol)
     item = obj
   elseif action == "sceneChange" then
     item = obj
     currentScene = SC.getNewScene(item)
   elseif action == "special" then
-    --execute special action for item
+    return SC.handleSpecialActions(obj, state)
   elseif action == "notes" then
     item = "notebook"
     currentScene = Scenes.NOTEBOOK
@@ -191,6 +268,72 @@ function SC.executeAction(action, obj)
   elseif action == "station" then
     currentScene = Scenes.DEBRIEFING_1
   end
+  
+  return "You can't do that."
+end
+
+function SC.handleSpecialActions(obj, state)
+  
+  --curtains
+  if obj == "curtains" then
+    if (state == "close" and curtainsAreOpen) or (state == "open" and not curtainsAreOpen) then
+      curtainsAreOpen = not curtainsAreOpen
+      return "true"
+    elseif state == "close" and not curtainsAreOpen then
+      return "Curtains are already closed."
+    elseif state == "open" and curtainsAreOpen then
+      return "Curtains are already open."
+    elseif state == "toggle" then
+      curtainsAreOpen = not curtainsAreOpen
+      if curtainsAreOpen then
+        return "You open the curtains."
+      else
+        return "You close the curtains."
+      end
+    end
+    return errorText
+  end
+  --light
+  if obj == "lamp" then
+    if (state == "off" and lightIsOn) or (state == "on" and not lightIsOn) then
+        lightIsOn = not lightIsOn
+      return "true"
+    elseif state == "off" and not lightIsOn then
+      return "The lamp has already been unplugged."
+    elseif state == "on" and lightIsOn then
+      return "The lamp is already on."
+    elseif state == "toggle" then
+      lightIsOn = not lightIsOn
+      if not lightIsOn then
+        return "You unplug the lamp."
+      else
+        return "You plug the lamp back in."
+      end
+    end
+    return errorText
+  end
+  --chest
+    if obj == "lock" then
+    if (state == "open" and chestIsOpen) or (state == "close" and not chestIsOpen) then
+        chestIsOpen = not chestIsOpen
+      return "true"
+    elseif state == "close" and not chestIsOpen then
+      return "The chest is still locked."
+    elseif state == "open" and chestIsOpen then
+      return "The chest is already unlocked."
+    elseif state == "toggle" then
+      chestIsOpen = not chestIsOpen
+      if chestIsOpen then
+        return "You opened the chest and shoved the lid aside."
+      else
+        return "You closed the chest back up."
+      end
+    end
+    return errorText
+  end
+  --desk drawers
+  
+  return "You can't do that."
 end
 
 function SC.updateDraw()

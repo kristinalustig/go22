@@ -19,11 +19,11 @@ function TE.init()
   
   text = ""
   love.keyboard.setKeyRepeat(true)
-  maxChars = 20
+  maxChars = 30
   charCount = 0
   textHistory = {}
   textSize = 24
-  maxTableSize = 6
+  maxTableSize = 8
   textInputY = 580
   maxTextWidth = 400
   dialogNum = 1
@@ -53,6 +53,9 @@ function TE.drawText()
     if shouldPrint then
       SC.setDialogFont()
       G.drawDialog(dialogNum)
+      if dialogNum < 4 then
+        lg.printf("(type 'next' to continue.)", 80, 380, 400, "left")
+      end
       SC.setTextFont()
       lg.printf(">> " .. text, 80, 560, maxTextWidth, "left")
     end
@@ -81,15 +84,11 @@ function TE.drawText()
   end
   
   lg.printf(">> " .. text, 20, textInputY, maxTextWidth, "left")
-  local textPosition = textInputY - 60 - (textSize * 1)
+  local textPosition = textInputY - 30 - (textSize * 1)
   for k, v in ipairs(textHistory) do
-    if #v*textSize/2 >= maxTextWidth then
-      lg.printf(v, 20, textPosition - textSize, maxTextWidth, "left")
-      textPosition = textPosition - (textSize * 2)
-    else
-      lg.printf(v, 20, textPosition, maxTextWidth, "left")
-      textPosition = textPosition - textSize
-    end
+    local linesLength = SC.getNumLines(v, maxTextWidth)
+    lg.printf(v, 20, textPosition - (textSize * linesLength), maxTextWidth, "left")
+    textPosition = textPosition - (textSize * linesLength)
   end
   
   S.drawSuggestions()
@@ -101,17 +100,27 @@ function TE.handleKeyPressed(key)
   
   local cs = SC.getCurrentScene()
   
+  if cs == Scenes.TITLE then
+    if key == "return" then
+      SC.setCurrentScene(Scenes.INTRO_BRIEFING)
+    end
+    return
+  end
+  
   if cs == Scenes.INTRO_BRIEFING then
+    text = string.gsub(text, '%s+', '')
     if key == "return" then
       if text == "next" then
         dialogNum = dialogNum + 1
+        text = ""
       elseif text == "repeat" then
         dialogNum = 1
+        text = ""
       elseif text == "ready" then
-        dialogNum = 9
+        dialogNum = 5
+        text = ""
         SC.setCurrentScene(Scenes.INTRO_COMIC)
       end
-      text = ""
       G.resetCurrDiagNum()
     end
     return
@@ -136,7 +145,7 @@ function TE.handleKeyPressed(key)
   elseif key == "return" then
     --check for special commands
     if text == "help" then
-      --do help here
+      SC.executeAction("help")
     elseif text == "notes" then
       SC.executeAction("notes")
     elseif text == "station" then
@@ -178,7 +187,7 @@ end
 
 function TE.lopOffEndOfTable()
   
-  if #textHistory > maxTableSize then
+  if #textHistory >= maxTableSize then
     table.remove(textHistory, #textHistory)
   end
   

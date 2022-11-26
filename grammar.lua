@@ -12,15 +12,16 @@ G.combos = {}
 G.dialog = {}
 
 local currentDialogPosition = 1
-local waitOnScreen = 200
+local waitOnScreen = 300
 
 G.specialCommands = {
-  "help", "notes", "back", "reset"
+  "help", "notes", "back", "reset", "1223"
   }
 
 local scale = 1
 local transformX = 0
 local transformY = 0
+local numTimesCantDoThat = 0
 
 function G.loadContentOnStart()
   
@@ -46,9 +47,18 @@ end
 function G.checkMatches(t)
 
   for k, v in ipairs(G.combos) do
-    if t:find(v[1]) and t:find(v[2]) then
+    if t:find(v[1]) ~= nil and t:find(v[2]) ~= nil then
       if v[4] ~= nil then
-        SC.executeAction(v[4], v[5])
+        if v[4] == "special" then
+          local textToDisplay = SC.executeAction(v[4], v[5], v[6])
+          if textToDisplay == "true" then
+            return v[3]
+          else
+            return textToDisplay
+          end
+        else
+          SC.executeAction(v[4], v[5], nil)
+        end
       end
       return v[3]
     end
@@ -60,7 +70,13 @@ function G.checkMatches(t)
     end
   end
   
-  return "You can't do that."
+  numTimesCantDoThat = numTimesCantDoThat + 1
+  
+  if numTimesCantDoThat == 6 then
+    return "You can't do that, either. Are you really just trying every action possible? Button mashing? Good for you."
+  else
+    return "You can't do that."
+  end
   
 end
 
@@ -69,7 +85,7 @@ function G.drawDialog(num)
   local scene = SC.getCurrentScene()
   
   if scene == Scenes.INTRO_BRIEFING or scene == Scenes.DEBRIEFING_1 then
-    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 600, "left")
+    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 650, "left")
   elseif scene == Scenes.INTRO_COMIC then
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 40, 620, 1200, "left")
   end
@@ -99,6 +115,9 @@ function G.splitLinesBySemicolon(line)
   for value in line:gmatch("[^;]+") do
     if value:sub(1,1) == " " then
       value = value:sub(2)
+    end
+    if value:sub(#value, #value) == " " then
+      value = value:sub(1, #value-1)
     end
     if value == "nil" then
       value = nil

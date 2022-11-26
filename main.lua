@@ -15,7 +15,8 @@ Scenes = {
     CALENDAR = 7,
     MAP = 8,
     DEBRIEFING_1 = 9,
-    GAME_OVER = 10
+    GAME_OVER = 10,
+    HELP = 11
 }
 
 function love.load()
