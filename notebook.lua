@@ -1,3 +1,5 @@
+local SC = require "sceneContent"
+
 N = {}
 
 local clues = 
@@ -25,11 +27,12 @@ local foundClues = {}
 
 function N.drawClues()
   
-  local iter = 1
-  
   if #foundClues > 0 then
+    local iter = 80
     for k, v in ipairs(foundClues) do
-      lg.printf(v, 600, 100 + (20*iter), 400, "left")
+      local textLines = SC.getNumLines(v, 600)
+      lg.printf("- "..v, 580, iter + (40*textLines), 600, "left")
+      iter = iter + (textLines * 40)
     end
   end
 

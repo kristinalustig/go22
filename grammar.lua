@@ -15,7 +15,7 @@ local currentDialogPosition = 1
 local waitOnScreen = 300
 
 G.specialCommands = {
-  "help", "notes", "back", "reset", "1223"
+  "help", "notes", "back", "reset", "1223", "dossier"
   }
 
 local scale = 1

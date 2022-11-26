@@ -84,14 +84,16 @@ function TE.drawText()
   end
   
   lg.printf(">> " .. text, 20, textInputY, maxTextWidth, "left")
-  local textPosition = textInputY - 30 - (textSize * 1)
+  local textPosition = textInputY - (textSize * 1)
   for k, v in ipairs(textHistory) do
     local linesLength = SC.getNumLines(v, maxTextWidth)
     lg.printf(v, 20, textPosition - (textSize * linesLength), maxTextWidth, "left")
     textPosition = textPosition - (textSize * linesLength)
   end
   
-  S.drawSuggestions()
+  if cs == Scenes.INVESTIGATION_1 then
+    S.drawSuggestions()
+  end
   
 end
 

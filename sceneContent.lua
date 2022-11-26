@@ -23,6 +23,8 @@ local bgWithOverlay
 local bgWIthDrawerOpen
 local lightPluggedIn
 local lightPlugOut
+local dossier
+local helpScreen
 
 local consoleColor
 
@@ -74,6 +76,8 @@ function SC.loadAssetsOnStart()
   bgWIthDrawerOpen = lg.newImage("/assets/bg-drawer-open.png")
   lightPluggedIn = lg.newImage("/assets/lamp-plugged-in.png")
   lightPlugOut = lg.newImage("/assets/lamp-unplugged.png")
+  dossier = lg.newImage("/assets/dossier.png")
+  helpScreen = lg.newImage("/assets/help.png")
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
@@ -150,6 +154,18 @@ function SC.draw()
     lg.draw(map)
   elseif currentScene == Scenes.CALENDAR then
     lg.draw(calendar)
+  elseif currentScene == Scenes.DIARY then
+    lg.draw(diary)
+  elseif currentScene == Scenes.LETTER then
+    lg.draw(letter)
+----------NEED NEW FONT HERE!-------------------------------------------------
+    lg.printf(
+  elseif currentScene == Scenes.HELP then
+----------NEED NEW FONT HERE!-------------------------------------------------
+    lg.draw(helpScreen)
+  elseif currentScene == Scenes.DOSSIER then
+----------NEED NEW FONT HERE!-------------------------------------------------
+    lg.draw(dossier)
   end
   
 end
@@ -172,9 +188,6 @@ end
 function SC.drawUi()
   
   if currentScene == Scenes.TITLE then
-    lg.draw(titlePage)
-    return
-  elseif currentScene == Scenes.HELP then
     lg.draw(titlePage)
     return
   elseif currentScene == Scenes.INTRO_BRIEFING then
@@ -209,11 +222,17 @@ function SC.drawUi()
   lg.printf("'notes'", 26, 78, 100, "center")
   lg.printf("'help'", 104, 78, 100, "center")
   lg.printf("'station'", 186, 78, 100, "center")
+  lg.printf("'dossier'", 270, 78, 100, "center")
   
   lg.setColor(0, 0, 0)
   lg.setFont(gameFont)
   if currentScene == Scenes.NOTEBOOK then
     N.drawClues()
+  end
+  
+  if currentScene ~= Scenes.INVESTIGATION_1 then
+    lg.setColor(consoleColor)
+    lg.printf("(Hit 'esc' or type 'back' to return)", 30, 620, 500, "left")
   end
   
   if midFade >= 0 then
@@ -249,7 +268,13 @@ function SC.executeAction(action, obj, state)
     item = ""
     currentScene = Scenes.INVESTIGATION_1
   elseif action == "help" then
+    item = "help"
     currentScene = Scenes.HELP
+    return "*Opening help folder...*"
+  elseif action == "dossier" then
+    item = "dossier"
+    currentScene = Scenes.DOSSIER
+    return "*Opening dossier...*"
   elseif action == "clue" then
     N.add(obj)
     --play a clue found sound
@@ -337,19 +362,9 @@ function SC.handleSpecialActions(obj, state)
 end
 
 function SC.updateDraw()
-  if item == "map" then
+  if item == "map" or item == "notebook" or item == "help" or item == "dossier" or item == "chest" or item == "letter" or item == "calendar" then
     scale = 2
-  elseif item == "notebook" then
-    scale = 2
-  elseif item == "polaroid" then
-    scale = 2
-  elseif item == "tickets" then
-    scale = 2
-  elseif item == "chest" then
-    scale = 2
-  elseif item == "calendar" then
-    scale = 2
-  elseif item == "desk" or item == "envelope" or item == "letter" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "book" or item == "pen" or item == "telephone receiver" or item == "vase" or item == "painting" then
+  elseif item == "desk" or item == "envelope" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "book" or item == "pen" or item == "telephone receiver" or item == "vase" or item == "painting" then
     scale = 4
     transformX = -2140
     transformY = -1300
@@ -369,6 +384,10 @@ function SC.getNewScene(i)
     return Scenes.MAP 
   elseif i == "calendar" then
     return Scenes.CALENDAR
+  elseif i == "book" then
+    return Scenes.BOOK
+  elseif i == "letter" then
+    return Scenes.LETTER
   end
   
 end
