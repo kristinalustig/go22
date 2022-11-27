@@ -1,11 +1,122 @@
-Greetings, agent. Apologies for calling you in on such short notice, but we've got a situation here. One of our finest operatives, codenamed Agent Sparrow, didn't make her scheduled rendevous last night.
-It was the first such check-in in one month, so she could be anywhere. That's where you come in. We need to keep a low profile, so you'll be using the Fly Spy to enter Sparrow's home and look for clues.
-You need to find clues to answer several questions about her field name, what happened to her, and who's involved. You'll be able to read more about the case requirements while you're on your mission.
+Greetings, agent. Apologies for calling you in on such short notice, but we've got a situation here. One of our best operatives, codenamed Sparrow, didn't make her scheduled rendevous last night.
+It was the first such check-in in one month, so she could be anywhere. Her handler went to investigate, and now she's disappeared too. That's where you come in. We need to keep a low profile, so you'll be using the Fly Spy to enter Sparrow's home and look for clues.
+Because her handler has disappeared as well, you need to find clues to answer several questions about her actual name, what happened to her, and who's involved. You'll be able to read more about the case requirements while you're on your mission.
 You'll be navigating this mission using a text interface - no mouse required. Just like now! Are you ready? If so, type 'ready'. If not, type 'repeat' to hear this all from the top. I'm expecting good things from you, agent. Report back ASAP.
 You climb into the Fly Spy - a shrinkable drone meant to carry one field agent.
 The Fly Spy shrinks down, readying you for your mission.
 Shrunk down and ready to investigate, your handler drops you off. You head for Sparrow's open window.
-Welcome back, agent. I'm hoping you have all the answers we need to get Agent Sparrow back.
-If you aren't ready, you can type 'back' at any point to go back to the investigation.
-First thing's first: what name is Agent Sparrow using in the field? Type her full name, first and last.
- 
+Welcome back, agent. I'm hoping you have all the answers we need to get Sparrow back. If you aren't ready, you can type 'back' at any point to go back to the investigation. When you return here, you'll restart the debriefing. Are you ready? 
+(Type "yes" to continue.)
+First thing's first: what is Sparrow's real name? 
+(Type her full name, first and last.)
+Interesting. Jean Cabot. That will be useful if we can't find her through other means. What happened to Jean? 
+(Express in a couple words or simple phrase.)
+She was abducted? This is worse than I feared. Thank goodness you're on the case, agent. What date was she abducted? That should help us get started on finding her.
+(Enter a two-digit number, prefixing with 0 if necessary.)
+So she's been gone for a couple of weeks already. This has now become a matter of incredible urgency, she could be anywhere. Do you know who took her?
+(Type the name or alias.)
+The Spider! That's a name I haven't heard in a long time. A long, long time indeed. All of his known hideouts have long since been cleared. Perhaps that is who she'd been investigating most recently. I'll bet she found out The Spider was on to her. Agent, this is so important: where has he brought her? 
+(Type the name of the street.)
+Williams Street? That's just here in town! Do you have a house number, Agent?
+(Type just the number.)
+Perfect. Hold on a moment, let me contact police dispatch...
+*Calling all units, anyone in the vicinity of Williams Street, proceed at once. Searching for Walter Jeffries, AKA The Spider. Last known location at house number 126. Possible hostage situation, proceed carefully.*
+(Press 'enter' to continue.)
+Incredible work, agent. Jean Cabot knew she was in danger, so she left a series of seemingly innocuous clues right before she was kidnapped. She knew that only a fellow agent would be able to decipher them. You've made excellent use of the experimental Fly Spy program, and we've gotten Sparrow and her handler back, safe and sound. It's all thanks to you.
+(Press 'enter' to continue.)
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+name
+name1
+what
+what1
+when
+when1
+who
+who1
+where
+where1
+streetnum
+streetnum1
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+nil
+general
+general1
+name
+name1
+what
+what1
+when
+when1
+who
+who1
+where
+where1
+streetnum
+streetnum1

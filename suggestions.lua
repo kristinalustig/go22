@@ -64,7 +64,9 @@ function S.updateSuggestions(t)
   end
   for k, v in ipairs(suggTable) do
     if string.len(t) > startSuggsAt and string.match(v, t:lower()) then
-      table.insert(suggestions, v)
+      if SC.isCurrentlyAccessible(v) then
+        table.insert(suggestions, v)
+      end
     end
   end
   

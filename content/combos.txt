@@ -1,74 +1,74 @@
-inspect; corkboard; An oversized corkboard nailed to the wall. It's covered with ephemera.; nil
-inspect; map; A map of town. It has a gridded alphanumeric system.; sceneChange; map
+inspect; corkboard; An oversized corkboard nailed to the wall. It's covered with ephemera.; zoom; corkboard
+inspect; map; A map of town. It has a gridded alphanumeric system, and a bunch of circled letters.; sceneChange; map
 inspect; calendar; It's turned to the current month, and has handwritten appointments.; sceneChange; calendar
 inspect; polaroid; A photo of Sparrow with a man in the background. The caption says ‘My brother W.S.’; clue; polaroid
 inspect; tickets; Two tickets to the opera for February 15. They appear unused.; clue; tickets
-inspect; post-its; She was taking some sort of notes. They appear to be written in code?; zoom; post-its
+inspect; post-its; She was taking some sort of notes. They appear to be written in code?; clue; post-its
 inspect; chest; A bright green trunk covered in stickers. It has a four-digit combination lock.; zoom; chest
-inspect; lock; The lock accepts a four-digit combination. (Type ‘open lock’ to enter it.); nil
+inspect; lock; The lock accepts a four-digit combination. (Type ‘open lock’ to enter it.); zoom; chest
 inspect; lamp; Just a cheap plastic light source. It’s on and there’s no off switch that you can see.; nil
 inspect; desk; This desk is tidy, yet it has a thin layer of dust across the surface. Undisturbed.; zoom; desk
-inspect; pink desk drawer; It looks like she painted these drawers herself. Not locked.; nil
-inspect; purple desk drawer; It looks like she painted these drawers herself. Not locked.; nil
-inspect; flower; Just a flower, fully blooming. The Fly Spy’s advanced olfactory system may have another clue.; nil
-inspect; telephone; Even for the late 90s, this telephone is old-school. At least it has buttons, not a dial.; nil
-inspect; answering machine; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); nil
+inspect; pink desk drawer; It looks like she painted these drawers herself. Not locked.; zoom; desk
+inspect; purple desk drawer; It looks like she painted these drawers herself. Not locked.; zoom; desk
+inspect; flower; Just a flower, fully blooming. The Fly Spy’s advanced olfactory system may have another clue.; zoom; desk
+inspect; telephone; Even for the late 90s, this telephone is old-school. At least it has buttons, not a dial.; zoom; desk
+inspect; answering machine; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); zoom; desk
 inspect; painting; An amateur painting of Sparrow, it seems. She’s hiking in the mountains.; clue; painting
-inspect; window; The window is open and the sounds and smells of the street are drifting up into the room.; nil
-inspect; curtains; The gauzy pink curtains are beautiful.; nil
-inspect; stool; While you don’t think this looks particularly comfortable, it seems to be all there is.; nil
-inspect; garbage; Ah, getting into the disguise: flies *do* love trash. Soda can, crumpled sketches.; nil
-inspect; lamp outlet; This is indeed where the lamp is plugged in to the wall.; nil
-inspect; desk outlet; The answering machine is plugged in here.; nil
-inspect; lamp plug; The plug seems fairly loose.; nil
+inspect; window; The window is open and the sounds and smells of the street are drifting up into the room.; zoom; window
+inspect; curtains; The gauzy pink curtains are beautiful.; zoom; curtains
+inspect; stool; While you don’t think this looks particularly comfortable, it seems to be all there is.; zoom; underDesk
+inspect; garbage; Ah, getting into the disguise: flies *do* love trash. Soda can, crumpled sketches.; zoom; underDesk
+inspect; lamp outlet; This is indeed where the lamp is plugged in to the wall.; zoom; lampOutlet
+inspect; desk outlet; The answering machine is plugged in here.; zoom; desk
+inspect; lamp plug; The plug seems fairly loose.; zoom; lampOutlet
 inspect; book; Seems to be some sort of diary. Could be useful.; sceneChange; book
-inspect; pen; Regular old ballpoint. Purple, though.; nil
+inspect; pen; Regular old ballpoint. Purple, though.; zoom; desk
 inspect; envelope; It’s addressed to ‘Jean Cabot’ at this address. Typed out, no return address.; clue; envelope
 inspect; letter; This is probably what was inside the envelope.; sceneChange; letter
 inspect; receipt; Looks like Sparrow spent quite a bit on camping supplies on February 13. Where are they?; clue; receipt
 inspect; key; This is the key for Sparrow’s agency-issued Honda CR-V.; clue; key
-inspect; lined paper; A grocery list: eggs, lettuce, cheddar cheese. Healthy staples.; nil
-inspect; vase; Looks fancy, but on closer inspection, it’s just molded plastic.; nil
-inspect; telephone receiver; No fingerprint smudges, cord isn’t kinked or warped. Well cared-for.; nil
+inspect; lined paper; A grocery list: eggs, lettuce, cheddar cheese. Healthy staples.; zoom; lined paper
+inspect; vase; Looks fancy, but on closer inspection, it’s just molded plastic.; zoom; desk
+inspect; telephone receiver; No fingerprint smudges, cord isn’t kinked or warped. Well cared-for.; zoom; desk
 inspect; backpack; It’s large and looks brand-new. A pack like this is appropriate for a long trip.; clue; backpack
-inspect; ski cap; Hand-knit, with a little bauble and everything. Has a small hole repaired.; nil
+inspect; ski cap; Hand-knit, with a little bauble and everything. Has a small hole repaired.; zoom; chest
 inspect; boots; Boots are broken-in but no mud in the soles.; clue; boots
-inspect; clothing; Wool and technical fabric, meant for backpacking.; nil
+inspect; clothing; Wool and technical fabric, meant for backpacking.; zoom; chest
 inspect; guidebook; This is a guidebook to Alaska’s best backpacking trips.; clue; guidebook
-inspect; sleeping bag; Rated to sub-freezing temperatures, this is definitely meant for cold weather.; nil
+inspect; sleeping bag; Rated to sub-freezing temperatures, this is definitely meant for cold weather.; zoom; chest
 inspect; carpet; Strange, there’s a hole torn in this carpet, with threads trailing off.; clue; carpet
-inspect; messages; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); nil
+inspect; messages; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); zoom; desk
 inspect; stickers; There are several stickers on the chest with different words and numbers.; clue; stickers
 unlock; chest; The chest’s lock has a four-digit combination.; special; lock; open
 unlock; lock; The chest’s lock has a four-digit combination.; special; lock; open
-unlock; pink desk drawer; The drawer isn’t locked.; nil
-unlock; purple desk drawer; The drawer isn’t locked.; nil
-unlock; backpack; The backpack isn’t locked.; nil
+unlock; pink desk drawer; The drawer isn’t locked.; zoom; desk
+unlock; purple desk drawer; The drawer isn’t locked.; zoom; desk
+unlock; backpack; The backpack isn’t locked.; zoom; chest
 lock; chest; Well, alright. The chest is locked.; special; lock; close
 lock; lock; Well, alright. The chest is locked.; special; lock; close
-lock; pink desk drawer; There is no lock.; nil
-lock; purple desk drawer; There is no lock.; nil
-lock; backpack; There is no lock.; nil
+lock; pink desk drawer; There is no lock.; zoom; desk
+lock; purple desk drawer; There is no lock.; zoom; desk
+lock; backpack; There is no lock.; zoom; chest
 open; chest; The chest’s lock has a four-digit combination.; special; lock; open
 open; lock; The chest’s lock has a four-digit combination.; special; lock; open
 open; pink desk drawer; Using the Fly Spy’s special grappling hook, you open the drawer.; special; pink desk drawer; open
 open; purple desk drawer; Using the Fly Spy’s special grappling hook, you open the drawer.; special; purple desk drawer; open
-open; window; The window is already open, that’s how you got in here!; nil
+open; window; The window is already open, that’s how you got in here!; zoom; window
 open; curtains; You pull the curtains back with your grappling hook to let more light into the room.; special; curtains; open
-open; book; The book is already open, it cannot get more open.; nil
-open; envelope; The envelope has been torn open already.; nil
-open; backpack; You pilot the Fly Spy through a gap in the closure, but there’s nothing in there.; nil
+open; book; The book is already open, it cannot get more open.; zoom; desk
+open; envelope; The envelope has been torn open already.; zoom; desk
+open; backpack; You pilot the Fly Spy through a gap in the closure, but there’s nothing in there.; zoom; chest
 close; chest; You put the chest’s lid back on, truly stretching the limit of the Fly Spy’s capabilities.; special; chest; close
 close; lock; Well, alright. The chest is locked.; special; lock; close
 close; pink desk drawer; The Fly Spy nudges the drawer shut.; special; pink desk drawer; close
 close; purple desk drawer; The Fly Spy nudges the drawer shut.; special; purple desk drawer; close
-close; telephone; That’s not quite how a telephone works. One cannot ‘close’ a telephone.; nil
-close; answering machine; The messages stop playing.; nil
-close; window; If you close the window, you won’t be able to make your exit.; nil
+close; telephone; That’s not quite how a telephone works. One cannot ‘close’ a telephone.; zoom; desk
+close; answering machine; The messages stop playing.; zoom; desk
+close; window; If you close the window, you won’t be able to make your exit.; zoom; window
 close; curtains; You close the curtains, filtering out a surprising amount of light for such thin curtains.; special; curtains; close
-close; book; If you closed the book, you might lose your place. The Fly Spy is not equipped to handle that.; nil
-close; envelope; The envelope has been torn open, and there is no tape to be found. It remains open.; nil
-close; backpack; The backpack is already closed.; nil
+close; book; If you closed the book, you might lose your place. The Fly Spy is not equipped to handle that.; zoom; desk
+close; envelope; The envelope has been torn open, and there is no tape to be found. It remains open.; zoom; desk
+close; backpack; The backpack is already closed.; zoom; chest
 read; corkboard; The board itself does not have much in the way of lettering, even if you look really close.; nil
 read; map; A map of town. It has a gridded alphanumeric system.; sceneChange; map
 read; calendar; It's turned to the current month, and has handwritten appointments.; sceneChange; calendar
@@ -83,90 +83,90 @@ read; letter; This is probably what was inside the envelope.; sceneChange; lette
 read; receipt; Looks like Sparrow spent quite a bit on camping supplies on February 13. Where are they?; clue; receipt
 read; lined paper; A grocery list: eggs, lettuce, cheddar cheese. Healthy staples.; nil
 read; guidebook; This is a guidebook to Alaska’s best backpacking trips.; clue; guidebook
-read; messages; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); nil
+read; messages; Looks like there are some new messages. (Type ‘listen answering machine’ to hear.); zoom; desk
 smell; corkboard; Ah, the smell of cork. Which smells like, well, nothing.; nil
 smell; map; No discernable scent, it’s just paper.; nil
 smell; calendar; No discernable scent, it’s just paper.; nil
 smell; polaroid; Do polaroids smell like anything? Nah. Now you know.; nil
 smell; tickets; No discernable scent, it’s just paper.; nil
 smell; post-its; No discernable scent, it’s just paper.; nil
-smell; chest; No odor that might indicate to you what is inside.; nil
-smell; lock; No odor that might indicate to you what is inside.; nil
+smell; chest; No odor that might indicate to you what is inside.; zoom; chest
+smell; lock; No odor that might indicate to you what is inside.; zoom; chest
 smell; lamp; It smells a bit dusty, that’s it.; nil
-smell; desk; It smells a bit dusty, that’s it.; nil
-smell; pink desk drawer; It smells a bit dusty, that’s it.; nil
-smell; purple desk drawer; It smells a bit dusty, that’s it.; nil
+smell; desk; It smells a bit dusty, that’s it.; zoom; desk
+smell; pink desk drawer; It smells a bit dusty, that’s it.; zoom; desk
+smell; purple desk drawer; It smells a bit dusty, that’s it.; zoom; desk
 smell; flower; Expecting a nice floral scent, you find instead that this flower is actually just plastic.; clue; flower
-smell; telephone; Your advanced Fly Spy sniffer detects traces of human skin oils, nothing else.; nil
-smell; answering machine; No smell at all.; nil
-smell; painting; The paint smells faintly like acrylic.; nil
-smell; window; Fly Spy’s olfactory system can detect the smell of tacos from the shop across the street.; nil
-smell; curtains; They smell a bit dusty.; nil
-smell; stool; You start to smell it, and then think better of it.; nil
+smell; telephone; Your advanced Fly Spy sniffer detects traces of human skin oils, nothing else.; zoom; desk
+smell; answering machine; No smell at all.; zoom; desk
+smell; painting; The paint smells faintly like acrylic.; zoom; window
+smell; window; Fly Spy’s olfactory system can detect the smell of tacos from the shop across the street.; zoom; window
+smell; curtains; They smell a bit dusty.; zoom; window
+smell; stool; You start to smell it, and then think better of it.; zoom; underDesk
 smell; garbage; The Fly Spy’s sensors detect a lingering sweet scent of soda residue, and a faint rotting smell, probably from the old taco wrapper below.; clue; garbage
 smell; lamp outlet; It smells like electricity.; nil
-smell; desk outlet; It smells like electricity.; nil
+smell; desk outlet; It smells like electricity.; zoom; underDesk
 smell; lamp plug; It smells like electricity.; nil
-smell; book; It does not have a new book smell, OR an old book smell.; nil
-smell; pen; Nope, no scent.; nil
-smell; envelope; It smells a little like exhaust fumes, probably just from the postman delivering it.; nil
-smell; letter; No discernable scent, it’s just paper.; nil
+smell; book; It does not have a new book smell, OR an old book smell.; zoom; desk
+smell; pen; Nope, no scent.; zoom; desk
+smell; envelope; It smells a little like exhaust fumes, probably just from the postman delivering it.; zoom; desk
+smell; letter; No discernable scent, it’s just paper.; zoom; desk
 smell; receipt; No discernable scent, it’s just paper.; nil
 smell; key; No scent.; nil
 smell; lined paper; No discernable scent, it’s just paper.; nil
 smell; vase; Getting close to the vase, you smell nothing. A plastic flower in a plastic vase.; clue; flower
-smell; telephone receiver; Your advanced Fly Spy sniffer detects traces of human skin oils, nothing else.; nil
+smell; telephone receiver; Your advanced Fly Spy sniffer detects traces of human skin oils, nothing else.; zoom; desk
 smell; backpack; No lingering scent from the outdoors at all.; clue; backpack
-smell; ski cap; Smells fairly freshly laundered.; nil
+smell; ski cap; Smells fairly freshly laundered.; zoom; chest
 smell; boots; A slight foot smell, but no lingering mud or pollen scent.; clue; boots
-smell; clothing; Smells fairly freshly laundered.; nil
-smell; guidebook; Definite new book smell.; nil
-smell; sleeping bag; No smells - this bag has never been used.; nil
+smell; clothing; Smells fairly freshly laundered.; zoom; chest
+smell; guidebook; Definite new book smell.; zoom; chest
+smell; sleeping bag; No smells - this bag has never been used.; zoom; chest
 smell; carpet; About a million smells from every foot that’s ever stepped on it. Effectively no smells.; nil
-smell; messages; You cannot smell digital media.; nil
-smell; stickers; Unfortunately, they are not scratch-n-sniff.; nil
+smell; messages; You cannot smell digital media.; zoom; desk
+smell; stickers; Unfortunately, they are not scratch-n-sniff.; zoom; chest
 taste; corkboard; The Fly Spy’s Tasting Proboscis comes up empty (save for a small sampling of cork).; nil
 taste; map; Tastes faintly of ink, nothing special.; nil
 taste; calendar; Tastes faintly of ink, nothing special.; nil
 taste; polaroid; Tastes like polaroid chemicals.; nil
 taste; tickets; Tastes faintly of ink, nothing special.; nil
 taste; post-its; Tastes faintly of ink, nothing special.; nil
-taste; chest; What a rich bouquet of taste. There are so many parts of this chest to sample. Nothing helpful, though.; nil
-taste; lock; Slightly metallic taste, probably because it is made of metal.; nil
+taste; chest; What a rich bouquet of taste. There are so many parts of this chest to sample. Nothing helpful, though.; zoom; chest
+taste; lock; Slightly metallic taste, probably because it is made of metal.; zoom; chest
 taste; lamp; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; desk; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; pink desk drawer; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; purple desk drawer; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
+taste; desk; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; desk
+taste; pink desk drawer; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; desk
+taste; purple desk drawer; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; desk
 taste; flower; Unfortunately, the Tasting Proboscis gets no pollen. This is a plastic flower.; clue; flower
-taste; telephone; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; answering machine; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; painting; It tastes like paint. Doesn’t matter if it’s non-toxic, the Fly Spy is doing the tasting for you.; nil
-taste; window; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; curtains; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; nil
-taste; stool; Tastes like how you’d always imagined a stool would taste.; nil
+taste; telephone; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; desk
+taste; answering machine; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; desk
+taste; painting; It tastes like paint. Doesn’t matter if it’s non-toxic, the Fly Spy is doing the tasting for you.; zoom; window
+taste; window; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; window
+taste; curtains; Your Fly Spy Tasting Proboscis gets a little sampling of dust.; zoom; window
+taste; stool; Tastes like how you’d always imagined a stool would taste.; zoom; underDesk
 taste; garbage; The soda residue tastes sweet. The dregs of taco meat do not.; clue; garbage
 taste; lamp outlet; Perhaps do not stick parts of your Fly Spy into electrical outlets.; nil
-taste; desk outlet; Perhaps do not stick parts of your Fly Spy into electrical outlets.; nil
+taste; desk outlet; Perhaps do not stick parts of your Fly Spy into electrical outlets.; zoom; underDesk
 taste; lamp plug; Tastes like plastic. So, not much.; nil
-taste; book; Tastes faintly of ink, nothing special.; nil
-taste; pen; Tastes faintly of ink, nothing special.; nil
-taste; envelope; Tastes faintly of ink, nothing special.; nil
-taste; letter; Tastes faintly of ink, nothing special.; nil
-taste; receipt; Tastes faintly of ink, nothing special.; nil
+taste; book; Tastes faintly of ink, nothing special.; zoom; desk
+taste; pen; Tastes faintly of ink, nothing special.; zoom; desk
+taste; envelope; Tastes faintly of ink, nothing special.; zoom; desk
+taste; letter; Tastes faintly of ink, nothing special.; zoom; desk
+taste; receipt; Tastes faintly of ink, nothing special.; zoom; desk
 taste; key; The Tasting Proboscis detects no flavors to speak of.; nil
 taste; lined paper; Tastes faintly of ink, nothing special.; nil
-taste; vase; The Tasting Proboscis detects no flavors to speak of.; nil
-taste; telephone receiver; The Tasting Proboscis detects no flavors to speak of.; nil
-taste; backpack; The Tasting Proboscis detects no flavors to speak of.; nil
-taste; ski cap; The Tasting Proboscis detects no flavors to speak of.; nil
-taste; boots; The Tasting Proboscis detects leather, and not much else.; nil
-taste; clothing; The Tasting Proboscis detects no flavors to speak of.; nil
-taste; guidebook; Tastes faintly of ink, nothing special.; nil
-taste; sleeping bag; It doesn’t taste of anything. It hasn’t been used.; nil
+taste; vase; The Tasting Proboscis detects no flavors to speak of.; zoom; desk
+taste; telephone receiver; The Tasting Proboscis detects no flavors to speak of.; zoom; desk
+taste; backpack; The Tasting Proboscis detects no flavors to speak of.; zoom; chest
+taste; ski cap; The Tasting Proboscis detects no flavors to speak of.; zoom; chest
+taste; boots; The Tasting Proboscis detects leather, and not much else.; zoom; chest
+taste; clothing; The Tasting Proboscis detects no flavors to speak of.; zoom; chest
+taste; guidebook; Tastes faintly of ink, nothing special.; zoom; chest
+taste; sleeping bag; It doesn’t taste of anything. It hasn’t been used.; zoom; chest
 taste; carpet; Tastes like every shoe that has ever stepped on it. You are glad the Fly Spy is tasting, not you.; nil
-taste; messages; You cannot taste digital media. If only. Maybe someday.; nil
-taste; stickers; They are not scratch-n-taste stickers.; nil
-press; chest; You try to use the Fly Spy to nudge the chest over, but it doesn’t budge.; nil
+taste; messages; You cannot taste digital media. If only. Maybe someday.; zoom; desk
+taste; stickers; They are not scratch-n-taste stickers.; zoom; chest
+press; chest; You try to use the Fly Spy to nudge the chest over, but it doesn’t budge.; zoom; chest
 press; lock; The chest’s lock has a four-digit combination.; special; lock; toggle
 press; lamp; The Fly Spy nudges the lamp a bit, but it doesn’t do much. Any harder and it might topple.; nil
 press; pink desk drawer; The Fly Spy nudges the drawer shut.; special; pink desk drawer; close
@@ -174,29 +174,29 @@ press; purple desk drawer; The Fly Spy nudges the drawer shut.; special; purple 
 press; telephone; When you try to use the telephone, you discover that there is no dial tone.; clue; telephone
 press; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; toggle
 press; lamp outlet; You push the lamp plug in a bit more firmly.; special; lamp; on
-press; desk outlet; You push the answering machine plug in a bit more firmly.; nil
-press; telephone receiver; Nothing happens.; nil
+press; desk outlet; You push the answering machine plug in a bit more firmly.; zoom; underDesk
+press; telephone receiver; Nothing happens.; zoom; desk
 press; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; toggle
 turn off; lamp; You cannot find an off switch.; nil
-turn off; telephone; The telephone is not making any calls.; nil
+turn off; telephone; The telephone is not making any calls.; zoom; desk
 turn off; answering machine; You stop the messages playing.; special; answering machine; off
-turn off; lamp outlet; You don’t see any place around to flip the breaker for this room.; nil
-turn off; desk outlet; You don’t see any place around to flip the breaker for this room.; nil
+turn off; lamp outlet; You don’t see any place around to flip the breaker for this room.; special; lamp; off
+turn off; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
 turn off; lamp plug; You use the Fly Spy’s grappling hook to unplug the lamp.; special; lamp; off
-turn off; telephone receiver; x; nil
+turn off; telephone receiver; This isn’t quite how telephones work.; zoom; desk
 turn off; messages; You stop the messages playing.; special; answering machine; off
 turn on; lamp; The lamp has no light switch that you can find.; nil
-turn on; telephone; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; nil
+turn on; telephone; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
 turn on; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
-turn on; lamp outlet; You don’t see any place around to flip the breaker for this room.; nil
-turn on; desk outlet; You don’t see any place around to flip the breaker for this room.; nil
-turn on; lamp plug; The plug doesn’t have an off switch.; nil
-turn on; telephone receiver; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; nil
+turn on; lamp outlet; You plug in the lamp to the outlet.; special; lamp; on
+turn on; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
+turn on; lamp plug; You plug in the lamp to the outlet.; special; lamp; on
+turn on; telephone receiver; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
 turn on; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 play; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 play; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 listen; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
-listen; window; You can hear cars driving down the street and children playing in the park down the block.; nil
+listen; window; You can hear cars driving down the street and children playing in the park down the block.; zoom; window
 listen; telephone; You knock the receiver off the hook and listen, but there is no dial tone.; clue; telephone
 listen; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 listen; telephone receiver; You knock the receiver off the hook and listen, but there is no dial tone.; clue; telephone
@@ -204,11 +204,12 @@ use; telephone; You knock the receiver off the hook and listen, but there is no 
 use; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; toggle
 use; pink desk drawer; Using the Fly Spy’s special grappling hook, you open the drawer.; special; pink desk drawer; toggle
 use; purple desk drawer; Using the Fly Spy’s special grappling hook, you open the drawer.; special; purple desk drawer; toggle
-use; pen; The Fly Spy’s navigation system is advanced, but not advanced enough to write with a full-sized pen.; nil
+use; pen; The Fly Spy’s navigation system is advanced, but not advanced enough to write with a full-sized pen.; zoom; desk
 use; lock; The chest’s lock has a four-digit combination.; special; lock
 use; chest; The chest’s lock has a four-digit combination.; special; lock
 use; lamp outlet; You use the Fly Spy’s grappling hook.; special; lamp; toggle
-use; desk outlet; If you unplug the answering machine, you won’t be able to listen to the messages.; nil
+use; lamp plug; You use the Fly Spy’s grappling hook.; special; lamp; toggle
+use; desk outlet; If you unplug the answering machine, you won’t be able to listen to the messages.; zoom; underDesk
 use; curtains; You adjust the curtains.; special; curtains; toggle
-use; window; You look out the window at the taco shop across the way.; nil
+use; window; You look out the window at the taco shop across the way.; zoom; window
 use; lamp; The lamp has no switch that you can see.; nil

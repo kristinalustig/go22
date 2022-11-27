@@ -12,6 +12,10 @@ local textSize
 local maxChars
 local charCount
 local dialogNum
+local isCorrect
+local shouldShowHint
+local triedAnswer
+local maxCharsBriefing
 
 function TE.init()
   
@@ -27,13 +31,17 @@ function TE.init()
   textInputY = 580
   maxTextWidth = 400
   dialogNum = 1
+  isCorrect = false
+  shouldShowHint = false
+  triedAnswer = false
+  maxCharsBriefing = 30
   
 end
 
 function TE.updateText()
   
   local cs = SC.getCurrentScene()
-  if cs ~= Scenes.NOTEBOOK then
+  if cs == Scenes.INVESTIGATION_1 then
     S.updateSuggestions(text)
   end
   
@@ -63,13 +71,29 @@ function TE.drawText()
   end
   
   if cs == Scenes.DEBRIEFING_1 then
-    if dialogNum < 12 then
-      dialogNum = 12
+    if dialogNum < 8 then
+      dialogNum = 8
     end
     SC.setDialogFont()
-    G.drawDialog(dialogNum)
+    if shouldDisplayHint then
+      G.drawDialog(dialogNum + 100)
+    elseif triedAnswer then
+      G.drawDialog(dialogNum + 50)
+    else
+      G.drawDialog(dialogNum)
+    end
     SC.setTextFont()
-    lg.printf(">> " .. text, 80, 560, maxTextWidth, "left")
+    lg.printf(">> " .. text, 80, 560, maxTextWidth+200, "left")
+    return
+  end
+  
+  if cs == Scenes.POLICE_CALL then
+    G.drawDialog(22)
+    return
+  elseif cs == Scenes.END_OF_GAME then
+    G.drawDialog(25)
+    return
+  elseif cs == Scenes.GAME_OVER then
     return
   end
   
@@ -98,9 +122,37 @@ function TE.drawText()
 end
 
 function TE.handleKeyPressed(key)
-  
-  
+
   local cs = SC.getCurrentScene()
+  
+  if cs == Scenes.POLICE_CALL then 
+    if key == "return" then
+      SC.setFade()
+      SC.setCurrentScene(Scenes.END_OF_GAME)
+      G.resetCurrDiagNum()
+      return
+    end
+  elseif cs == Scenes.END_OF_GAME then
+    if key == "return" then
+      SC.setFade()
+      SC.setCurrentScene(Scenes.GAME_OVER)
+      return
+    end
+  elseif cs == Scenes.GAME_OVER then
+    return
+  end
+  
+  if cs == Scenes.INTRO_BRIEFING or cs == Scenes.DEBRIEFING_1 then
+    if key == "return" then
+      text = text:lower()
+      charCount = 0
+      love.keyboard.setTextInput(true)
+    elseif key == "backspace" then
+      TE.handleBackspace()
+    else
+      TE.checkCharCount()
+    end
+  end
   
   if cs == Scenes.TITLE then
     if key == "return" then
@@ -127,9 +179,66 @@ function TE.handleKeyPressed(key)
     end
     return
   elseif cs == Scenes.DEBRIEFING_1 then
-    text = ""
+    if key == "return" then
+      if text == "okay" then
+        shouldDisplayHint = false
+        triedAnswer = false
+        text = ""
+        G.resetCurrDiagNum()
+        return
+      elseif text == "back" then
+        dialogNum = 8
+        triedAnswer = false
+        text = ""
+        G.resetCurrDiagNum()
+        SC.setCurrentScene(Scenes.INVESTIGATION_1)
+        return
+      elseif text == "hint" then
+        shouldDisplayHint = true
+        triedAnswer = false
+        text = ""
+        G.resetCurrDiagNum()
+        return
+      end
+      if dialogNum == 8 then
+        if text == "yes" then
+          dialogNum = dialogNum + 2
+          G.resetCurrDiagNum()
+        end
+        text = ""
+        return
+      elseif dialogNum == 10 then --name
+        isCorrect = SC.checkDebrief("name", text)
+        triedAnswer = true
+      elseif dialogNum == 12 then --what happened
+        isCorrect = SC.checkDebrief("what", text) 
+        triedAnswer = true
+      elseif dialogNum == 14 then --date
+        isCorrect = SC.checkDebrief("when", tostring(text))
+        triedAnswer = true
+      elseif dialogNum == 16 then --kidnapper
+        isCorrect = SC.checkDebrief("who", text)
+        triedAnswer = true
+      elseif dialogNum == 18 then --street
+        isCorrect = SC.checkDebrief("where", text)
+        triedAnswer = true
+      elseif dialogNum == 20 then --house number
+        isCorrect = SC.checkDebrief("streetNum", tostring(text))
+        triedAnswer = true
+      end
+      if isCorrect then
+        dialogNum = dialogNum + 2
+        triedAnswer = false
+        if dialogNum == 22 then
+          SC.setCurrentScene(Scenes.POLICE_CALL)
+          SC.setFade()
+        end
+      end
+      text = ""
+      G.resetCurrDiagNum()
+      return
+    end
     return
-    --HANDLE GAME ANSWERS HERE
   end
   
   if cs == Scenes.INTRO_COMIC then
@@ -191,6 +300,28 @@ function TE.lopOffEndOfTable()
   
   if #textHistory >= maxTableSize then
     table.remove(textHistory, #textHistory)
+  end
+  
+end
+
+function TE.handleBackspace()
+  
+  local byteoffset = utf8.offset(text, -1)
+  if byteoffset then
+    text = string.sub(text, 1, byteoffset - 1)
+    charCount = charCount - 1
+    love.keyboard.setTextInput(true)
+  end
+  
+end
+
+function TE.checkCharCount()
+  
+  if charCount >= maxCharsBriefing then
+    love.keyboard.setTextInput(false)
+  else
+    charCount = charCount + 1
+    love.keyboard.setTextInput(true)
   end
   
 end

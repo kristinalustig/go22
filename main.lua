@@ -18,7 +18,9 @@ Scenes = {
     GAME_OVER = 10,
     HELP = 11,
     LETTER = 12,
-    DOSSIER = 13
+    DOSSIER = 13,
+    END_OF_GAME = 14,
+    POLICE_CALL = 15
 }
 
 function love.load()

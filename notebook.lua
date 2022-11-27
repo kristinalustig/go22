@@ -15,11 +15,12 @@ local clues =
   backpack = "The backpack in the chest has never been used, but seems meant for a long trip.", 
   painting = "The painting is of Sparrow hiking in the mountains.",
   calendar = "There are several appointments on the calendar.", 
-  map = "The map has some street names highlighted across its quadrants.", 
+  map = "The map has some letters circled across its quadrants.", 
   stickers = "The stickers across the chest have numbers and letters on them.",
   letter = "clue", 
   receipt = "Sparrow purchased lots of camping supplies on February 13.", 
-  envelope = "The envelope has no return address but is addressed to Jean Cabot."
+  envelope = "The envelope has no return address but is addressed to Jean Cabot.",
+  boots = "The boots have been broken in but there's no trace of mud on them."
 }
 
 local foundClues = {}
@@ -159,8 +160,14 @@ function N.add(obj)
     else
       return false
     end
+  elseif obj == "boots" then
+    if not N.clueAlreadyFound(clues.boots) then
+      table.insert(foundClues, clues.boots)
+      return true
+    else
+      return false
+    end
   end
-  
   
 end
 

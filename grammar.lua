@@ -15,7 +15,7 @@ local currentDialogPosition = 1
 local waitOnScreen = 300
 
 G.specialCommands = {
-  "help", "notes", "back", "reset", "1223", "dossier"
+  "help", "notes", "back", "reset", "1223", "dossier", "station"
   }
 
 local scale = 1
@@ -43,11 +43,16 @@ function G.loadContentOnStart()
   
 end
 
-
 function G.checkMatches(t)
 
   for k, v in ipairs(G.combos) do
     if t:find(v[1]) ~= nil and t:find(v[2]) ~= nil then
+      if v[2] == "lamp" and t:find("outlet") then
+        goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
+      end
+      if not SC.isCurrentlyAccessible(v[2]) then
+        return "You can't do that."
+      end
       if v[4] ~= nil then
         if v[4] == "special" then
           local textToDisplay = SC.executeAction(v[4], v[5], v[6])
@@ -56,12 +61,16 @@ function G.checkMatches(t)
           else
             return textToDisplay
           end
+        elseif v[4] == "clue" then
+          local textToDisplay = v[3] .. " ".. SC.executeAction(v[4], v[5], nil)
+          return textToDisplay
         else
           SC.executeAction(v[4], v[5], nil)
         end
       end
       return v[3]
     end
+    ::hackyskip::
   end
   for k, v in ipairs(G.specialCommands) do
     if t:find(v) then
@@ -84,19 +93,39 @@ function G.drawDialog(num)
   
   local scene = SC.getCurrentScene()
   
+  if scene == Scenes.POLICE_CALL then
+    num = num + 1
+  end
+  
   if scene == Scenes.INTRO_BRIEFING or scene == Scenes.DEBRIEFING_1 then
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 650, "left")
   elseif scene == Scenes.INTRO_COMIC then
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 40, 620, 1200, "left")
+  elseif scene == Scenes.POLICE_CALL then
+    lg.setColor(1, 1, 1)
+    lg.printf(G.dialog[num-1], 100, 200, 800, "center")
+    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 100, 400, 800, "left")
+  elseif scene == Scenes.END_OF_GAME then
+    lg.setColor(0, 0, 0)
+    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 100, 200, 800, "left")
   end
   
   if currentDialogPosition < string.len(G.dialog[num]) then
     currentDialogPosition = currentDialogPosition + 1
   else
-    waitOnScreen = waitOnScreen - 1
-    if waitOnScreen <= 0 then
-      waitOnScreen = 200
-      return true
+    if scene == Scenes.DEBRIEFING_1 then
+      -----NEW FONT HERE
+      lg.printf(G.dialog[num+1], 90, 380, 600, "left")
+    elseif scene == Scenes.POLICE_CALL then
+      lg.printf(G.dialog[num+1], 90, 500, 600, "center")
+    elseif scene == Scenes.END_OF_GAME then
+      lg.printf(G.dialog[num+1], 90, 500, 600, "center")
+    else
+      waitOnScreen = waitOnScreen - 1
+      if waitOnScreen <= 0 then
+        waitOnScreen = 200
+        return true
+      end
     end
   end
   return false

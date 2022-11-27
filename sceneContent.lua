@@ -25,6 +25,10 @@ local lightPluggedIn
 local lightPlugOut
 local dossier
 local helpScreen
+local chestDisplay
+local endScreen
+local policeCall
+local endOfGame
 
 local consoleColor
 
@@ -46,6 +50,7 @@ local chestIsOpen
 local curtainsAreOpen
 
 local errorText
+local isZoomed
 
 function SC.loadAssetsOnStart()
   
@@ -58,6 +63,7 @@ function SC.loadAssetsOnStart()
   map = lg.newImage("/assets/map.png")
   calendar = lg.newImage("/assets/calendar.png")
   ui = lg.newImage("/assets/ui.png")
+  endScreen = lg.newImage("/assets/end.png")
   titlePage = lg.newImage("/assets/title.png")
   briefingText = lg.newImage("/assets/briefingText.png")
   briefingScreen = lg.newImage("/assets/briefing.png")
@@ -78,6 +84,9 @@ function SC.loadAssetsOnStart()
   lightPlugOut = lg.newImage("/assets/lamp-unplugged.png")
   dossier = lg.newImage("/assets/dossier.png")
   helpScreen = lg.newImage("/assets/help.png")
+  chestDisplay = lg.newImage("/assets/chest-display.png")
+  endOfGame = lg.newImage("/assets/endOfGame.png")
+  policeCall = lg.newImage("/assets/policeCall.png")
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
@@ -91,7 +100,7 @@ function SC.loadAssetsOnStart()
   chestIsOpen = false
   curtainsAreOpen = true
   
-  currentScene = Scenes.INVESTIGATION_1
+  currentScene = Scenes.GAME_OVER
   
 end
 
@@ -122,7 +131,7 @@ function SC.draw()
       lg.draw(purpleDrawerOpen)
     end
     if pinkDrawerIsOpen then
-      lg.draw(pinkDrawerIsOpen)
+      lg.draw(pinkDrawerOpen)
     end
     if curtainsAreOpen then
       lg.draw(openCurtains)
@@ -133,12 +142,12 @@ function SC.draw()
       lg.draw(chestLid)
     end
     if not lightIsOn and not curtainsAreOpen then
+      lg.draw(bgWithOverlay)
       if purpleDrawerIsOpen then
-        lg.setColor(0, 0, 0, .3)
-        lg.rectangle(0, 0, 800, 700)
         lg.draw(bgWIthDrawerOpen)
-      else
-        lg.draw(bgWithOverlay)
+      end
+      if chestIsOpen then
+        lg.draw(chestDisplay)
       end
     end
     if lightIsOn then
@@ -159,7 +168,11 @@ function SC.draw()
   elseif currentScene == Scenes.LETTER then
     lg.draw(letter)
 ----------NEED NEW FONT HERE!-------------------------------------------------
-    lg.printf(
+    lg.setFont(briefingFont)
+    lg.setColor(0, 0, 0)
+    lg.printf("JEAN CABOT", 140, 800, 300, "left")
+    lg.printf("74F MAGNOLIA STREET", 140, 850, 500, "left")
+    lg.printf("PITTSBURG, CA 90107", 140, 900, 300, "left")
   elseif currentScene == Scenes.HELP then
 ----------NEED NEW FONT HERE!-------------------------------------------------
     lg.draw(helpScreen)
@@ -214,6 +227,30 @@ function SC.drawUi()
     lg.draw(briefingScreen)
     lg.draw(briefingText)
     return
+  elseif currentScene == Scenes.GAME_OVER then
+    lg.draw(endScreen)
+    lg.setFont(gameFont)
+    lg.setColor(0, 0, 0, 1)
+    lg.printf("That's the end of the game!", 0, 200, 1400, "center")
+    lg.printf("Thank you so much for taking the time to play.", 0, 240, 1400, "center")
+    lg.printf("All code, art, music, and game design by kristinamay", 0, 280, 1400, "center")
+    return  
+  elseif currentScene == Scenes.END_OF_GAME then
+    lg.draw(endOfGame)
+    if midFade >= 0 then
+      midFade = midFade - .01
+      lg.setColor(0, 0, 0, midFade)
+      lg.rectangle("fill", 0, 0, 1400, 700)
+    end
+    return  
+  elseif currentScene == Scenes.POLICE_CALL then
+    lg.draw(policeCall)
+    if midFade >= 0 then
+      midFade = midFade - .01
+      lg.setColor(0, 0, 0, midFade)
+      lg.rectangle("fill", 0, 0, 1400, 700)
+    end
+    return  
   end
   
   lg.draw(ui)
@@ -230,9 +267,9 @@ function SC.drawUi()
     N.drawClues()
   end
   
-  if currentScene ~= Scenes.INVESTIGATION_1 then
+  if currentScene ~= Scenes.INVESTIGATION_1 or isZoomed then
     lg.setColor(consoleColor)
-    lg.printf("(Hit 'esc' or type 'back' to return)", 30, 620, 500, "left")
+    lg.printf("(Hit 'esc' or type 'back' to return)", 30, 560, 500, "left")
   end
   
   if midFade >= 0 then
@@ -257,6 +294,44 @@ function SC.setDialogFont()
   lg.setFont(briefingFont)
 end
 
+function SC.setFade()
+  
+  midFade = 1
+  
+end
+
+function SC.checkDebrief(question, answer)
+  
+  answer = answer:lower()
+  
+  if question == "name" then
+    if answer:find("jean") and answer:find("cabot") then
+      return true
+    end
+  elseif question == "what" then
+    if answer:find("kidnap") or answer:find("abduct") or answer:find("taken") then
+      return true
+    end
+  elseif question == "when" then
+    if answer:find("14") or answer:find("15") then
+      return true
+    end  
+  elseif question == "who" then
+    if answer:find("spider") then
+      return true
+    end
+  elseif question == "where" then
+    if answer:find("williams") then
+      return true
+    end
+  elseif question == "streetNum" then
+    if answer:find("126") then
+      return true
+    end
+  end
+end
+
+
 function SC.executeAction(action, obj, state)
   
   if action == "1223" then
@@ -266,32 +341,48 @@ function SC.executeAction(action, obj, state)
   
   if action == "reset" then
     item = ""
+    isZoomed = false
     currentScene = Scenes.INVESTIGATION_1
   elseif action == "help" then
     item = "help"
     currentScene = Scenes.HELP
+    isZoomed = false
     return "*Opening help folder...*"
   elseif action == "dossier" then
     item = "dossier"
     currentScene = Scenes.DOSSIER
+    isZoomed = false
     return "*Opening dossier...*"
   elseif action == "clue" then
-    N.add(obj)
+    local objAdded = N.add(obj)
+    item = obj
+    isZoomed = true
+    if objAdded then
+      return "(New clue added to your notes!)"
+    else
+      return "(Clue is already in your notes.)"
+    end
     --play a clue found sound
     --blink the notebook
   elseif action == "zoom" then
+    isZoomed = true
     item = obj
   elseif action == "sceneChange" then
     item = obj
     currentScene = SC.getNewScene(item)
+    isZoomed = false
   elseif action == "special" then
+    isZoomed = false
     return SC.handleSpecialActions(obj, state)
   elseif action == "notes" then
     item = "notebook"
+    isZoomed = false
     currentScene = Scenes.NOTEBOOK
     return "*Opening notebook...*"
   elseif action == "station" then
+    isZoomed = false
     currentScene = Scenes.DEBRIEFING_1
+    return "Heading back to the station."
   end
   
   return "You can't do that."
@@ -338,9 +429,11 @@ function SC.handleSpecialActions(obj, state)
     return errorText
   end
   --chest
-    if obj == "lock" then
-    if (state == "open" and chestIsOpen) or (state == "close" and not chestIsOpen) then
-        chestIsOpen = not chestIsOpen
+  if obj == "lock" then
+    if state == "open" and not chestIsOpen then
+      return "true"
+    elseif state == "close" and chestIsOpen then
+      chestIsOpen = false
       return "true"
     elseif state == "close" and not chestIsOpen then
       return "The chest is still locked."
@@ -357,14 +450,80 @@ function SC.handleSpecialActions(obj, state)
     return errorText
   end
   --desk drawers
+  if obj == "pink desk drawer" then
+    if (state == "close" and pinkDrawerIsOpen) or (state == "open" and not pinkDrawerIsOpen) then
+      pinkDrawerIsOpen = not pinkDrawerIsOpen
+      return "true"
+    elseif state == "close" and not pinkDrawerIsOpen then
+      return "The drawer is already closed."
+    elseif state == "open" and pinkDrawerIsOpen then
+      return "The drawer is already open."
+    elseif state == "toggle" then
+      pinkDrawerIsOpen = not pinkDrawerIsOpen
+      if pinkDrawerIsOpen then
+        return "You open the drawer."
+      else
+        return "You close the drawer."
+      end
+    end
+    return errorText
+  end
+  
+  if obj == "purple desk drawer" then
+    if (state == "close" and purpleDrawerIsOpen) or (state == "open" and not purpleDrawerIsOpen) then
+      purpleDrawerIsOpen = not purpleDrawerIsOpen
+      return "true"
+    elseif state == "close" and not purpleDrawerIsOpen then
+      return "The drawer is already closed."
+    elseif state == "open" and purpleDrawerIsOpen then
+      return "The drawer is already open."
+    elseif state == "toggle" then
+      purpleDrawerIsOpen = not purpleDrawerIsOpen
+      if purpleDrawerIsOpen then
+        return "You open the drawer."
+      else
+        return "You close the drawer."
+      end
+    end
+    return errorText
+  end
   
   return "You can't do that."
 end
 
 function SC.updateDraw()
-  if item == "map" or item == "notebook" or item == "help" or item == "dossier" or item == "chest" or item == "letter" or item == "calendar" then
+  --zoom in on corkbooard
+  if item == "lined paper" or item == "post-its" or item == "lined paper" or item == "key" or item == "receipt" or item == "corkboard" or item == "tickets" then
+    scale = 2.2
+    transformX = -400
+    transformY = -400
+  --zoom in on window area
+  elseif item == "window" or item == "painting" or item == "curtains" then
+    scale = 2.6
+    transformX = -1800
+    transformY = -600
+  --zoom in on lamp outlet
+  elseif item == "lampOutlet" then
+    scale = 4
+    transformX = -100
+    transformY = -1500
+  --zoom in on under desk
+  elseif item == "garbage" or item == "underDesk" then
+    scale = 4
+    transformX = -2140
+    transformY = -1600
+  --special scene screens
+  elseif item == "map" or item == "notebook" or item == "help" or item == "dossier" or item == "letter" or item == "calendar" then
     scale = 2
-  elseif item == "desk" or item == "envelope" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "book" or item == "pen" or item == "telephone receiver" or item == "vase" or item == "painting" then
+    transformX = 0
+    transformY = 0
+  --zoom in on chest
+  elseif item == "lock" or item == "chest" or item == "backpack" or item == "guide" or item == "ski cap" or item == "boots" or item == "clothing" then
+    scale = 4
+    transformX = -800
+    transformY = -1500
+  --zoom in on desk area
+  elseif item == "desk" or item == "envelope" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "book" or item == "pen" or item == "telephone receiver" or item == "vase" then
     scale = 4
     transformX = -2140
     transformY = -1300
@@ -376,6 +535,17 @@ function SC.updateDraw()
   
   return scale, transformX, transformY
   
+end
+
+function SC.isCurrentlyAccessible(obj)
+  if obj == "boots" or obj == "sleeping bag" or obj == "guide" or obj == "clothing" or obj == "ski cap" then
+    if chestIsOpen then
+      return true
+    else
+      return false
+    end
+  end
+  return true
 end
 
 function SC.getNewScene(i)
