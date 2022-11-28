@@ -8,6 +8,7 @@ local comicPage3
 local briefingScreen
 local briefingText
 local notebook
+local notebookWithTranscription
 local openCurtains
 local closedCurtains
 local lightOn
@@ -29,6 +30,9 @@ local chestDisplay
 local endScreen
 local policeCall
 local endOfGame
+local tuneOne
+local tuneTwo
+local tuneTiming
 
 local consoleColor
 
@@ -37,6 +41,8 @@ local item
 local gameFont
 local uiLabel
 local briefingFont
+local dossierFont
+local endOfGameFont
 
 local currentScene
 local midFade
@@ -48,18 +54,27 @@ local purpleDrawerIsOpen
 local lightIsOn
 local chestIsOpen
 local curtainsAreOpen
+local heardMachine
+local machineIsPlaying
+local ansMachineNotes
 
 local errorText
 local isZoomed
 
+local answeringMachine
+
 function SC.loadAssetsOnStart()
   
   gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 16)
-  uiLabel = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 12)
+  uiLabelFontTiny = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 12)
+  uiLabelFont = lg.newFont("/assets/fonts/OpenSans-Italic.ttf", 20)
   briefingFont = lg.newFont("/assets/fonts/CrimsonText-Regular.ttf", 30)
+  dossierFont = lg.newFont("/assets/fonts/CutiveMono-Regular.ttf", 30)
+  endOfGameFont = lg.newFont("/assets/fonts/Lora-SemiBold.ttf", 30)
   
   background = lg.newImage("/assets/background.png")
   notebook = lg.newImage("/assets/notebook.png")
+  notebookWithTranscription = lg.newImage("/assets/notebookWithTranscription.png")
   map = lg.newImage("/assets/map.png")
   calendar = lg.newImage("/assets/calendar.png")
   ui = lg.newImage("/assets/ui.png")
@@ -87,6 +102,11 @@ function SC.loadAssetsOnStart()
   chestDisplay = lg.newImage("/assets/chest-display.png")
   endOfGame = lg.newImage("/assets/endOfGame.png")
   policeCall = lg.newImage("/assets/policeCall.png")
+  
+  answeringMachine = love.audio.newSource("/assets/audio/clarinet.mp3", "stream")
+  tuneOne = love.audio.newSource("/assets/audio/clarinet.mp3", "stream")
+  tuneTwo = love.audio.newSource("/assets/audio/sax.mp3", "stream")
+  tuneTiming = 500
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
@@ -99,8 +119,11 @@ function SC.loadAssetsOnStart()
   lightIsOn = true
   chestIsOpen = false
   curtainsAreOpen = true
+  heardMachine = true
+  machineIsPlaying = false
   
-  currentScene = Scenes.GAME_OVER
+  currentScene = Scenes.INVESTIGATION_1
+  tuneTwo:play()
   
 end
 
@@ -158,7 +181,11 @@ function SC.draw()
     end
     
   elseif currentScene == Scenes.NOTEBOOK then
-    lg.draw(notebook)
+    if heardMachine == false then
+      lg.draw(notebook)
+    else
+      lg.draw(notebookWithTranscription)
+    end
   elseif currentScene == Scenes.MAP then
     lg.draw(map)
   elseif currentScene == Scenes.CALENDAR then
@@ -167,17 +194,18 @@ function SC.draw()
     lg.draw(diary)
   elseif currentScene == Scenes.LETTER then
     lg.draw(letter)
-----------NEED NEW FONT HERE!-------------------------------------------------
     lg.setFont(briefingFont)
     lg.setColor(0, 0, 0)
     lg.printf("JEAN CABOT", 140, 800, 300, "left")
     lg.printf("74F MAGNOLIA STREET", 140, 850, 500, "left")
     lg.printf("PITTSBURG, CA 90107", 140, 900, 300, "left")
   elseif currentScene == Scenes.HELP then
-----------NEED NEW FONT HERE!-------------------------------------------------
+    lg.setFont(dossierFont)
+    lg.setColor(0, 0, 0)
     lg.draw(helpScreen)
   elseif currentScene == Scenes.DOSSIER then
-----------NEED NEW FONT HERE!-------------------------------------------------
+    lg.setFont(dossierFont)
+    lg.setColor(0, 0, 0)
     lg.draw(dossier)
   end
   
@@ -202,6 +230,9 @@ function SC.drawUi()
   
   if currentScene == Scenes.TITLE then
     lg.draw(titlePage)
+    lg.setFont(endOfGameFont)
+    lg.setColor(0, 0, 0)
+    lg.printf("(Press 'enter' to begin)", 300, 600, 1100, "center")
     return
   elseif currentScene == Scenes.INTRO_BRIEFING then
     lg.draw(briefingScreen)
@@ -255,7 +286,7 @@ function SC.drawUi()
   
   lg.draw(ui)
   lg.setColor(consoleColor)
-  lg.setFont(uiLabel)
+  lg.setFont(uiLabelFontTiny)
   lg.printf("'notes'", 26, 78, 100, "center")
   lg.printf("'help'", 104, 78, 100, "center")
   lg.printf("'station'", 186, 78, 100, "center")
@@ -281,7 +312,7 @@ function SC.drawUi()
 end
 
 function SC.setSuggestionsFont()
-  lg.setFont(uiLabel)
+  lg.setFont(uiLabelFontTiny)
 end
 
 function SC.setTextFont()
@@ -292,6 +323,11 @@ end
 function SC.setDialogFont()
   lg.setColor(0,0,0)
   lg.setFont(briefingFont)
+end
+
+function SC.setUiLabelFont()
+  lg.setColor(1, 1, 1)
+  lg.setFont(uiLabelFont)
 end
 
 function SC.setFade()
@@ -488,10 +524,57 @@ function SC.handleSpecialActions(obj, state)
     return errorText
   end
   
+  if obj == "answering machine" then
+    if state == "on" and machineIsPlaying then
+      return "Messages are currently playing."
+    elseif state == "off" and not machineIsPlaying then
+      return "Messages are not currently playing."
+    elseif (state == "on" or state == "toggle") and not machineIsPlaying then
+      heardMachine = true
+      machineIsPlaying = true
+      love.audio.stop()
+      answeringMachine:play()
+      if state == "toggle" then
+        return "You play the messages. (Turn up the sound to hear, or read them in your 'notes'.)"
+      else
+        return "true"
+      end
+    elseif (state == "off" or state == "toggle") and machineIsPlaying then
+      answeringMachine:stop()
+      machineIsPlaying = false
+      if state == "toggle" then
+        return "You turn off the messages."
+      else
+        return "true"
+      end
+    end
+  end
+  
   return "You can't do that."
 end
 
 function SC.updateDraw()
+  
+  if answeringMachine:isPlaying() then
+    machineIsPlaying = true
+  else
+    machineIsPlaying = false
+  end
+  
+  if not tuneOne:isPlaying() and not tuneTwo:isPlaying() and not machineIsPlaying then
+    tuneTiming = tuneTiming - 1
+    if tuneTiming <= 0 then
+      tuneTiming = 500
+      if lastPlayed == tuneOne then
+        tuneTwo:play()
+        lastPlayed = tuneTwo
+      else
+        tuneOne:play()
+        lastPlayed = tuneOne
+      end
+    end
+  end
+  
   --zoom in on corkbooard
   if item == "lined paper" or item == "post-its" or item == "lined paper" or item == "key" or item == "receipt" or item == "corkboard" or item == "tickets" then
     scale = 2.2
@@ -561,6 +644,5 @@ function SC.getNewScene(i)
   end
   
 end
-
     
 return SC

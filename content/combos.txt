@@ -177,22 +177,22 @@ press; lamp outlet; You push the lamp plug in a bit more firmly.; special; lamp;
 press; desk outlet; You push the answering machine plug in a bit more firmly.; zoom; underDesk
 press; telephone receiver; Nothing happens.; zoom; desk
 press; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; toggle
-turn off; lamp; You cannot find an off switch.; nil
-turn off; telephone; The telephone is not making any calls.; zoom; desk
-turn off; answering machine; You stop the messages playing.; special; answering machine; off
-turn off; lamp outlet; You don’t see any place around to flip the breaker for this room.; special; lamp; off
-turn off; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
-turn off; lamp plug; You use the Fly Spy’s grappling hook to unplug the lamp.; special; lamp; off
-turn off; telephone receiver; This isn’t quite how telephones work.; zoom; desk
-turn off; messages; You stop the messages playing.; special; answering machine; off
-turn on; lamp; The lamp has no light switch that you can find.; nil
-turn on; telephone; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
-turn on; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
-turn on; lamp outlet; You plug in the lamp to the outlet.; special; lamp; on
-turn on; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
-turn on; lamp plug; You plug in the lamp to the outlet.; special; lamp; on
-turn on; telephone receiver; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
-turn on; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
+turnoff; lamp; You cannot find an off switch.; nil
+turnoff; telephone; The telephone is not making any calls.; zoom; desk
+turnoff; answering machine; You stop the messages playing.; special; answering machine; off
+turnoff; lamp outlet; You don’t see any place around to flip the breaker for this room.; special; lamp; off
+turnoff; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
+turnoff; lamp plug; You use the Fly Spy’s grappling hook to unplug the lamp.; special; lamp; off
+turnoff; telephone receiver; This isn’t quite how telephones work.; zoom; desk
+turnoff; messages; You stop the messages playing.; special; answering machine; off
+turnon; lamp; The lamp has no light switch that you can find.; nil
+turnon; telephone; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
+turnon; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
+turnon; lamp outlet; You plug in the lamp to the outlet.; special; lamp; on
+turnon; desk outlet; You don’t see any place around to flip the breaker for this room.; zoom; underDesk
+turnon; lamp plug; You plug in the lamp to the outlet.; special; lamp; on
+turnon; telephone receiver; Older telephones like this don’t really have on or off switches. They’re just plugged to the wall.; zoom; desk
+turnon; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 play; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 play; answering machine; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on
 listen; messages; You play the messages. (Turn up the sound to hear, or read them in your 'notes'.); special; answering machine; on

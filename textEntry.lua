@@ -62,6 +62,7 @@ function TE.drawText()
       SC.setDialogFont()
       G.drawDialog(dialogNum)
       if dialogNum < 4 then
+        SC.setUiLabelFont()
         lg.printf("(type 'next' to continue.)", 80, 380, 400, "left")
       end
       SC.setTextFont()
