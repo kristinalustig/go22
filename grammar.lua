@@ -50,6 +50,9 @@ function G.checkMatches(t)
       if v[2] == "lamp" and t:find("outlet") then
         goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
       end
+      if v[2] == "desk" and t:find("drawer") then
+        goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
+      end
       if not SC.isCurrentlyAccessible(v[2]) then
         return "You can't do that."
       end

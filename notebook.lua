@@ -20,7 +20,8 @@ local clues =
   letter = "There's a threatening letter to 'Jean' from someone named Spider.", 
   receipt = "Sparrow purchased lots of camping supplies on February 13.", 
   envelope = "The envelope has no return address but is addressed to Jean Cabot.",
-  boots = "The boots have been broken in but there's no trace of mud on them."
+  boots = "The boots have been broken in but there's no trace of mud on them.",
+  carpet = "The apartment is tidy, so why is there a big rip in the carpet?"
 }
 
 local foundClues = {}
@@ -163,6 +164,13 @@ function N.add(obj)
   elseif obj == "boots" then
     if not N.clueAlreadyFound(clues.boots) then
       table.insert(foundClues, clues.boots)
+      return true
+    else
+      return false
+    end
+  elseif obj == "carpet" then
+    if not N.clueAlreadyFound(clues.carpet) then
+      table.insert(foundClues, clues.carpet)
       return true
     else
       return false

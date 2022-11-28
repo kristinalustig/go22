@@ -601,7 +601,7 @@ function SC.updateDraw()
     transformX = -2140
     transformY = -1600
   --special scene screens
-  elseif item == "map" or item == "notebook" or item == "help" or item == "dossier" or item == "letter" or item == "calendar" then
+  elseif item == "map" or item == "notebook" or item == "help" or item == "dossier" or item == "letter" or item == "calendar" or item == "book" then
     scale = 2
     transformX = 0
     transformY = 0
@@ -611,7 +611,7 @@ function SC.updateDraw()
     transformX = -800
     transformY = -1500
   --zoom in on desk area
-  elseif item == "desk" or item == "envelope" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "book" or item == "pen" or item == "telephone receiver" or item == "vase" then
+  elseif item == "desk" or item == "envelope" or item == "telephone" or item == "pink desk drawer" or item == "purple desk drawer" or item == "answering machine" or item == "pen" or item == "telephone receiver" or item == "vase" then
     scale = 4
     transformX = -2140
     transformY = -1300
@@ -642,8 +642,8 @@ function SC.getNewScene(i)
     return Scenes.MAP 
   elseif i == "calendar" then
     return Scenes.CALENDAR
-  elseif i == "book" then
-    return Scenes.BOOK
+  elseif i == "book" or i == "diary" then
+    return Scenes.DIARY
   elseif i == "letter" then
     return Scenes.LETTER
   end

@@ -54,6 +54,8 @@ function S.updateSuggestions(t)
   suggestions = {}
   local startSuggsAt = 0
   
+  t = t:gsub("[^[:alnum:][:space:]]","")
+  
   local suggTable = {}
   if movedToNouns then
     startSuggsAt = 1
