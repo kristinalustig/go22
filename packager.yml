@@ -1,0 +1,9 @@
+name: Fly Spy
+
+description: Investigate as a fly
+shortname: flyspy
+version: 1.0.0
+assets:
+  - "*.lua"
+  - assets/**/*
+  - content/**/*

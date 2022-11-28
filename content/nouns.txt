@@ -3,7 +3,7 @@ map
 calendar
 polaroid
 tickets
-post-its
+postits
 chest
 lock
 lamp

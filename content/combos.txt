@@ -3,7 +3,7 @@ inspect; map; A map of town. It has a gridded alphanumeric system, and a bunch o
 inspect; calendar; It's turned to the current month, and has handwritten appointments.; sceneChange; calendar
 inspect; polaroid; A photo of Sparrow with a man in the background. The caption says ‘My brother W.S.’; clue; polaroid
 inspect; tickets; Two tickets to the opera for February 15. They appear unused.; clue; tickets
-inspect; post-its; She was taking some sort of notes. They appear to be written in code?; clue; post-its
+inspect; postits; She was taking some sort of notes. They appear to be written in code?; clue; postits
 inspect; chest; A bright green trunk covered in stickers. It has a four-digit combination lock.; zoom; chest
 inspect; lock; The lock accepts a four-digit combination. (Type ‘open lock’ to enter it.); zoom; chest
 inspect; lamp; Just a cheap plastic light source. It’s on and there’s no off switch that you can see.; nil

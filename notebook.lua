@@ -4,11 +4,11 @@ N = {}
 
 local clues = 
 {polaroid = "There's a photo of Sparrow on the board with a caption that reads 'My brother W.S.' She looks anxious.",
-  tickets = "There are two tickets to the opera on February 18 tacked to the board. The stubs are not torn.",
+  tickets = "There are two tickets to the opera on February 15 tacked to the board. The stubs are not torn.",
   flower = "The flower in the vase on the desk appears fresh, but is actually just plastic.", 
   key = "Sparrow's car keys are still at home.",
   linedPaper = "Sparrow had a large list of perishable groceries on her shopping list.",
-  postIts = "clue", 
+  postIts = "There's some sort of code involving numbers on the postit notes on the whiteboard.", 
   guide = "Sparrow had a guide to Alaska's best hikes in her chest.", 
   garbage = "The food-related garbage in the can is starting to rot.", 
   answeringMachine = "There are several messages on the machine.",
@@ -16,8 +16,8 @@ local clues =
   painting = "The painting is of Sparrow hiking in the mountains.",
   calendar = "There are several appointments on the calendar.", 
   map = "The map has some letters circled across its quadrants.", 
-  stickers = "The stickers across the chest have numbers and letters on them.",
-  letter = "clue", 
+  stickers = "The stickers across the chest have numbers and letters on them. Do they mean something?",
+  letter = "There's a threatening letter to 'Jean' from someone named Spider.", 
   receipt = "Sparrow purchased lots of camping supplies on February 13.", 
   envelope = "The envelope has no return address but is addressed to Jean Cabot.",
   boots = "The boots have been broken in but there's no trace of mud on them."
@@ -32,8 +32,8 @@ function N.drawClues()
     local iter = 80
     for k, v in ipairs(foundClues) do
       local textLines = SC.getNumLines(v, 600)
-      lg.printf("- "..v, 580, iter + (40*textLines), 600, "left")
-      iter = iter + (textLines * 40)
+      lg.printf("- "..v, 580, iter + (20*textLines), 600, "left")
+      iter = iter + (textLines * 20)
     end
   end
 
@@ -76,7 +76,7 @@ function N.add(obj)
     else
       return false
     end
-  elseif obj == "post-its" then
+  elseif obj == "postits" then
     if not N.clueAlreadyFound(clues.postIts) then
       table.insert(foundClues, clues.postIts)
       return true

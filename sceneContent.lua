@@ -43,6 +43,7 @@ local uiLabel
 local briefingFont
 local dossierFont
 local endOfGameFont
+local notebookFont
 
 local currentScene
 local midFade
@@ -68,9 +69,12 @@ function SC.loadAssetsOnStart()
   gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 16)
   uiLabelFontTiny = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 12)
   uiLabelFont = lg.newFont("/assets/fonts/OpenSans-Italic.ttf", 20)
+  uiLabelFontAlt = lg.newFont("/assets/fonts/OpenSans-Italic.ttf", 15)
   briefingFont = lg.newFont("/assets/fonts/CrimsonText-Regular.ttf", 30)
   dossierFont = lg.newFont("/assets/fonts/CutiveMono-Regular.ttf", 30)
   endOfGameFont = lg.newFont("/assets/fonts/Lora-SemiBold.ttf", 30)
+  notebookFont = lg.newFont("/assets/fonts/Kalam-Regular.ttf", 20)
+  notebookFont:setLineHeight(.6)
   
   background = lg.newImage("/assets/background.png")
   notebook = lg.newImage("/assets/notebook.png")
@@ -119,7 +123,7 @@ function SC.loadAssetsOnStart()
   lightIsOn = true
   chestIsOpen = false
   curtainsAreOpen = true
-  heardMachine = true
+  heardMachine = false
   machineIsPlaying = false
   
   currentScene = Scenes.INVESTIGATION_1
@@ -293,14 +297,15 @@ function SC.drawUi()
   lg.printf("'dossier'", 270, 78, 100, "center")
   
   lg.setColor(0, 0, 0)
-  lg.setFont(gameFont)
+  lg.setFont(notebookFont)
   if currentScene == Scenes.NOTEBOOK then
     N.drawClues()
   end
   
   if currentScene ~= Scenes.INVESTIGATION_1 or isZoomed then
     lg.setColor(consoleColor)
-    lg.printf("(Hit 'esc' or type 'back' to return)", 30, 560, 500, "left")
+    lg.setFont(uiLabelFontAlt)
+    lg.printf("(Hit 'esc' or type 'back' to return)", 24, 556, 490, "left")
   end
   
   if midFade >= 0 then
@@ -576,7 +581,7 @@ function SC.updateDraw()
   end
   
   --zoom in on corkbooard
-  if item == "lined paper" or item == "post-its" or item == "lined paper" or item == "key" or item == "receipt" or item == "corkboard" or item == "tickets" then
+  if item == "lined paper" or item == "postits" or item == "polaroid" or item == "key" or item == "receipt" or item == "corkboard" or item == "tickets" then
     scale = 2.2
     transformX = -400
     transformY = -400
