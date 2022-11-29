@@ -138,7 +138,55 @@ function TE.handleKeyPressed(key)
 
   local cs = SC.getCurrentScene()
   
-  text = text:gsub("[^%a%s]","")
+  text = text:gsub("[^%a%s%d]","")
+  
+  if text == "stop music" then
+    local t = ""
+    if SC.getMusicPlaying() then
+      t = "Stopped music."
+    else
+      t = "Music is already stopped."
+    end
+    SC.setMusicPlaying(false)
+    if cs ~= Scenes.DEBRIEFING_1 and cs ~= Scenes.INTRO_BRIEFING then
+      S.clearSuggestions()
+      TE.lopOffEndOfTable()
+      table.insert(textHistory, 1, ">> " .. text)
+      commandHistoryPosition = 0
+      table.insert(textHistory, 1, t)
+      charCount = 0
+      text = ""
+      love.keyboard.setTextInput(true)
+      movedToNouns = false
+    else
+      charCount = 0
+      text = ""
+    end
+    return
+  elseif text == "play music" then
+    local t = ""
+    if not SC.getMusicPlaying() then
+      t = "Restarted music."
+    else
+      t = "Music is already enabled."
+    end
+    SC.setMusicPlaying(true)
+    if cs ~= Scenes.DEBRIEFING_1 and cs ~= Scenes.INTRO_BRIEFING then
+      S.clearSuggestions()
+      TE.lopOffEndOfTable()
+      table.insert(textHistory, 1, ">> " .. text)
+      commandHistoryPosition = 0
+      table.insert(textHistory, 1, t)
+      charCount = 0
+      text = ""
+      love.keyboard.setTextInput(true)
+      movedToNouns = false
+    else
+      charCount = 0
+      text = ""
+    end
+    return
+  end
   
   if cs == Scenes.POLICE_CALL then 
     if key == "return" or key == "kpenter"  then
@@ -184,8 +232,8 @@ function TE.handleKeyPressed(key)
   end
   
   if cs == Scenes.INTRO_BRIEFING then
-    text = string.gsub(text, '%s+', '')
     if key == "return"  or key == "kpenter" then
+      text = string.gsub(text, '%s+', '')
       if text == "next" and dialogNum < 4 then
         dialogNum = dialogNum + 1
         text = ""
@@ -198,6 +246,7 @@ function TE.handleKeyPressed(key)
         SC.setCurrentScene(Scenes.INTRO_COMIC1)
       end
       G.resetCurrDiagNum()
+      text = ""
     end
     return
   elseif cs == Scenes.DEBRIEFING_1 then

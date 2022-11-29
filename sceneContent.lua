@@ -34,6 +34,10 @@ local endOfGame
 local tuneOne
 local tuneTwo
 local tuneTiming
+local debriefTune
+local endingTune
+local clueChime
+local isMusicPlaying
 
 local consoleColor
 
@@ -113,7 +117,12 @@ function SC.loadAssetsOnStart()
   answeringMachine = love.audio.newSource("/assets/audio/voicemails.mp3", "stream")
   tuneOne = love.audio.newSource("/assets/audio/clarinet.mp3", "stream")
   tuneTwo = love.audio.newSource("/assets/audio/sax.mp3", "stream")
-  tuneTiming = 500
+  debriefTune = love.audio.newSource("/assets/audio/debrief.mp3", "stream")
+  endingTune = love.audio.newSource("/assets/audio/ending.mp3", "stream")
+  clueChime = love.audio.newSource("/assets/audio/clue.mp3", "static")
+  tuneTiming = 1
+  isMusicPlaying = true
+  lastPlayed = tuneOne
     
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
@@ -128,8 +137,7 @@ function SC.loadAssetsOnStart()
   heardMachine = false
   machineIsPlaying = false
   
-  currentScene = Scenes.TITLE
-  tuneTwo:play()
+  currentScene = Scenes.DEBRIEFING_1
   
 end
 
@@ -277,7 +285,7 @@ function SC.drawUi()
   elseif currentScene == Scenes.GAME_OVER then
     lg.draw(endScreen)
     lg.setFont(briefingFont)
-    lg.setColor(0, 0, 0, 1)
+    lg.setColor(1, 1, 1, 1)
     lg.printf("That's the end of the game!", 0, 100, 1400, "center")
     lg.printf("Thank you so much for taking the time to play.", 0, 140, 1400, "center")
     lg.printf("All code, art, music, and game design by kristinamay", 0, 180, 1400, "center")
@@ -288,7 +296,7 @@ function SC.drawUi()
     lg.printf("Zach Frandsen as James, the date", 0, 380, 1400, "center")
     lg.printf("kristinamay as Sparrow and handler", 0, 420, 1400, "center")
     lg.printf("S. Pastrami Esq. as Carl, the chip eater", 0, 460, 1400, "center")
-    lg.printf("Sound effects from freesound.org (full details on itch.io page)", 0, 500, 1400, "center")
+    lg.printf("Voicemail beep from freesound.org (full details on itch.io page)", 0, 500, 1400, "center")
     lg.printf("Special thanks to playtesters Matt, ______FILL IN", 0, 580, 1400, "center")
     return  
   elseif currentScene == Scenes.END_OF_GAME then
@@ -438,6 +446,7 @@ function SC.executeAction(action, obj, state)
     item = obj
     isZoomed = true
     if objAdded then
+      clueChime:play()
       return "*New note added!*"
     else
       return "(Clue is already in your notes.)"
@@ -607,18 +616,38 @@ function SC.updateDraw()
     machineIsPlaying = false
   end
   
-  if not tuneOne:isPlaying() and not tuneTwo:isPlaying() and not machineIsPlaying then
-    tuneTiming = tuneTiming - 1
-    if tuneTiming <= 0 then
-      tuneTiming = 500
-      if lastPlayed == tuneOne then
-        tuneTwo:play()
-        lastPlayed = tuneTwo
-      else
-        tuneOne:play()
-        lastPlayed = tuneOne
+  if isMusicPlaying then
+    if currentScene == Scenes.DEBRIEFING_1 or currentScene == Scenes.POLICE_CALL then
+      if lastPlayed ~= debriefTune then
+        love.audio.stop()
+        debriefTune:play()
+        lastPlayed = debriefTune
+      end
+    elseif currentScene == Scenes.END_OF_GAME then
+      if lastPlayed ~= endingTune then
+        love.audio.stop()
+        endingTune:play()
+        lastPlayed = endingTune
+      end
+    elseif not tuneOne:isPlaying() and not tuneTwo:isPlaying() and not machineIsPlaying then
+      love.audio.stop()
+      tuneTiming = tuneTiming - 1
+      if tuneTiming <= 0 then
+        tuneTiming = 500
+        if lastPlayed == tuneOne then
+          tuneTwo:play()
+          lastPlayed = tuneTwo
+        else
+          tuneOne:play()
+          lastPlayed = tuneOne
+        end
       end
     end
+  else
+    tuneOne:stop()
+    tuneTwo:stop()
+    debriefTune:stop()
+    endingTune:stop()
   end
   
   --zoom in on corkbooard
@@ -691,6 +720,23 @@ function SC.getNewScene(i)
     return Scenes.LETTER
   end
   
+end
+
+function SC.setMusicPlaying(c)
+  
+  if c == true then
+    isMusicPlaying = true
+    tuneTiming = 1
+    lastPlayed = nil
+  else
+    isMusicPlaying = false
+  end
+  
+end
+
+function SC.getMusicPlaying()
+  
+  return isMusicPlaying  
 end
     
 return SC

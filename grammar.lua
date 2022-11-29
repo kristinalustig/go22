@@ -155,6 +155,7 @@ function G.drawDialog(num)
   else
     if scene == Scenes.DEBRIEFING_1 then
       -----NEW FONT HERE
+      SC.setUiLabelFont()
       lg.printf(G.dialog[num+1], 90, 380, 600, "left")
     elseif scene == Scenes.POLICE_CALL then
       lg.printf(G.dialog[num+1], 0, 580, 1400, "center")

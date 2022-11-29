@@ -45,7 +45,7 @@ local foundCluesTest = {"There's a photo of Sparrow on the board with a caption 
   "The apartment is exceptionally tidy, so why is there a big rip in the carpet? Did something happen here?"
 }
 
-local foundClues = foundCluesTest
+local foundClues = {}
 
 
 function N.drawClues()
