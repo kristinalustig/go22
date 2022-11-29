@@ -46,41 +46,43 @@ end
 function G.checkMatches(t)
 
   for k, v in ipairs(G.combos) do
+    local hackyskip = false
     if t:find(v[1]) ~= nil and v[1] == "code" then
       return SC.executeAction(nil, "code", t:sub(t:find("e")+2, #t))
     elseif t:find(v[1]) ~= nil and t:find(v[2]) ~= nil then
       if v[2] == "lamp" and t:find("outlet") then
-        goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
+        hackyskip = true--fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
       elseif v[2] == "desk" and t:find("drawer") then
-        goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
+        hackyskip = true --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
       elseif v[2] == "telephone" and t:find("receiver") then
-        goto hackyskip
+        hackyskip = true
       elseif v[2] == "desk" and t:find("outlet") then
-        goto hackyskip
+        hackyskip = true
       elseif v[2] == "lamp" and t:find("lamp plug") then
-        goto hackyskip
+        hackyskip = true
       end
-      if not SC.isCurrentlyAccessible(v[2]) then
-        return "You can't do that."
-      end
-      if v[4] ~= nil then
-        if v[4] == "special" then
-          local textToDisplay = SC.executeAction(v[4], v[5], v[6])
-          if textToDisplay == "true" then
-            return v[3]
-          else
-            return textToDisplay
-          end
-        elseif v[4] == "clue" then
-          local textToDisplay = v[3] .. " ".. SC.executeAction(v[4], v[5], nil)
-          return textToDisplay
-        else
-          SC.executeAction(v[4], v[5], nil)
+      if not hackyskip then
+        if not SC.isCurrentlyAccessible(v[2]) then
+          return "You can't do that."
         end
+        if v[4] ~= nil then
+          if v[4] == "special" then
+            local textToDisplay = SC.executeAction(v[4], v[5], v[6])
+            if textToDisplay == "true" then
+              return v[3]
+            else
+              return textToDisplay
+            end
+          elseif v[4] == "clue" then
+            local textToDisplay = v[3] .. " ".. SC.executeAction(v[4], v[5], nil)
+            return textToDisplay
+          else
+            SC.executeAction(v[4], v[5], nil)
+          end
+        end
+        return v[3]
       end
-      return v[3]
     end
-    ::hackyskip::
   end
   for k, v in ipairs(G.specialCommands) do
     if t:find(v) then
