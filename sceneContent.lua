@@ -335,6 +335,11 @@ function SC.drawUi()
   
 end
 
+function SC.getZoomed()
+  return isZoomed
+end
+
+
 function SC.setSuggestionsFont()
   lg.setFont(uiLabelFontTiny)
 end
