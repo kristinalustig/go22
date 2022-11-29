@@ -10,6 +10,8 @@ lamp
 desk
 pink desk drawer
 purple desk drawer
+left desk drawer
+right desk drawer
 flower
 telephone
 answering machine

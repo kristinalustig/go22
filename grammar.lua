@@ -54,6 +54,10 @@ function G.checkNouns(n)
     return "polaroid"
   elseif n == "sticky notes" or n == "stickies" or n == "post-its" then
     return "postits"
+  elseif n == "left desk drawer" then
+    return "pink desk drawer"
+  elseif n == "right desk drawer" then
+    return "purple desk drawer"
   end
   
   return n

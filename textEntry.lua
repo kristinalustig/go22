@@ -140,6 +140,12 @@ function TE.handleKeyPressed(key)
   
   text = text:gsub("[^%a%s%d]","")
   
+  if cs == Scenes.DEBRIEFING_1 and isWeb then
+    if key == "space" then
+      text = text .. " " --web version what u doing
+    end
+  end
+  
   if text == "stop music" then
     local t = ""
     if SC.getMusicPlaying() then

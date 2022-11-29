@@ -297,7 +297,7 @@ function SC.drawUi()
     lg.printf("kristinamay as Sparrow and handler", 0, 420, 1400, "center")
     lg.printf("S. Pastrami Esq. as Carl, the chip eater", 0, 460, 1400, "center")
     lg.printf("Voicemail beep from freesound.org (full details on itch.io page)", 0, 500, 1400, "center")
-    lg.printf("Special thanks to playtesters Matt, ______FILL IN", 0, 580, 1400, "center")
+    lg.printf("Special thanks to playtesters Matt, James, Fletcher, & Amber", 0, 580, 1400, "center")
     return  
   elseif currentScene == Scenes.END_OF_GAME then
     lg.draw(endOfGame)
@@ -630,7 +630,7 @@ function SC.updateDraw()
         debriefTune:play()
         lastPlayed = debriefTune
       end
-    elseif currentScene == Scenes.END_OF_GAME then
+    elseif currentScene == Scenes.END_OF_GAME or currentScene == Scenes.GAME_OVER then
       if lastPlayed ~= endingTune then
         tuneOne:stop()
         tuneTwo:stop()
