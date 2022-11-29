@@ -43,7 +43,33 @@ function G.loadContentOnStart()
   
 end
 
+
+function G.checkNouns(n)
+  
+  if n == "bin" or n == "refuse" or n == "trash" or n == "wastebasket" or n == "dustbin" then
+    return "garbage"
+  elseif n == "pinboard" or n == "board" or n == "notice board" then
+    return "corkboard"
+  elseif n == "photo" or n == "snapshot" then
+    return "polaroid"
+  end
+  
+  return n
+end
+
+
 function G.checkMatches(t)
+
+  local noun = ""
+  if t:find(" ") then
+    noun = t:sub(t:find(" ")+1, #t)
+    print(noun)
+  end
+
+  local needsReplacement = G.checkNouns(noun)
+  if needsReplacement ~= noun then
+    t = t..needsReplacement
+  end
 
   for k, v in ipairs(G.combos) do
     local hackyskip = false

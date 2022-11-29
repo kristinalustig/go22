@@ -138,6 +138,8 @@ function TE.handleKeyPressed(key)
 
   local cs = SC.getCurrentScene()
   
+  text = text:gsub("[^%a%s]","")
+  
   if cs == Scenes.POLICE_CALL then 
     if key == "return" or key == "kpenter"  then
       SC.setFade()

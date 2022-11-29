@@ -59,7 +59,7 @@ function S.updateSuggestions(t)
   local startSuggsAt = 0
   
   if t ~= nil and #t > 0 then
-    t = t:gsub("[^[:alnum:][:space:]]","")
+    t = t:gsub("[^%a%s]","")
   else
     return
   end
