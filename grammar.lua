@@ -46,12 +46,19 @@ end
 function G.checkMatches(t)
 
   for k, v in ipairs(G.combos) do
-    if t:find(v[1]) ~= nil and t:find(v[2]) ~= nil then
+    if t:find(v[1]) ~= nil and v[1] == "code" then
+      return SC.executeAction(nil, "code", t:sub(t:find("e")+2, #t))
+    elseif t:find(v[1]) ~= nil and t:find(v[2]) ~= nil then
       if v[2] == "lamp" and t:find("outlet") then
         goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
-      end
-      if v[2] == "desk" and t:find("drawer") then
+      elseif v[2] == "desk" and t:find("drawer") then
         goto hackyskip --fix someday; this finds "lamp" when it is supposed to find "lamp outlet" sometimes
+      elseif v[2] == "telephone" and t:find("receiver") then
+        goto hackyskip
+      elseif v[2] == "desk" and t:find("outlet") then
+        goto hackyskip
+      elseif v[2] == "lamp" and t:find("lamp plug") then
+        goto hackyskip
       end
       if not SC.isCurrentlyAccessible(v[2]) then
         return "You can't do that."
@@ -103,7 +110,7 @@ function G.drawDialog(num)
   if scene == Scenes.INTRO_BRIEFING or scene == Scenes.DEBRIEFING_1 then
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 650, "left")
   elseif scene == Scenes.INTRO_COMIC then
-    lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 40, 620, 1200, "left")
+    
   elseif scene == Scenes.POLICE_CALL then
     lg.setColor(1, 1, 1)
     lg.printf(G.dialog[num-1], 100, 200, 800, "center")

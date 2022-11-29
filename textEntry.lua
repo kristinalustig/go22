@@ -16,6 +16,8 @@ local isCorrect
 local shouldShowHint
 local triedAnswer
 local maxCharsBriefing
+local commandHistory = {}
+local commandHistoryPosition = 0
 
 function TE.init()
   
@@ -98,13 +100,23 @@ function TE.drawText()
     return
   end
   
-  if cs == Scenes.INTRO_COMIC then
-    local isTextDone = G.drawDialog(dialogNum)
-    if isTextDone then
-      SC.incrementComic()
-      G.resetCurrDiagNum()
-      dialogNum = dialogNum + 1
-    end
+  if cs == Scenes.INTRO_COMIC1 then
+    SC.setComicFont()
+    lg.printf(G.dialog[5], 0, 600, 1400, "center")
+    SC.setTextFont()
+    lg.printf("(Press 'enter' to continue)", 0, 660, 1400, "center")
+    return
+  elseif cs == Scenes.INTRO_COMIC2 then
+    SC.setComicFont()
+    lg.printf(G.dialog[6], 0, 600, 1400, "center")
+    SC.setTextFont()
+    lg.printf("(Press 'enter' to continue)", 0, 660, 1400, "center")
+    return
+  elseif cs == Scenes.INTRO_COMIC3 then
+    SC.setComicFont()
+    lg.printf(G.dialog[7], 0, 600, 1400, "center")
+    SC.setTextFont()
+    lg.printf("(Press 'enter' to continue)", 0, 660, 1400, "center")
     return
   end
   
@@ -127,14 +139,14 @@ function TE.handleKeyPressed(key)
   local cs = SC.getCurrentScene()
   
   if cs == Scenes.POLICE_CALL then 
-    if key == "return" then
+    if key == "return" or key == "kpenter"  then
       SC.setFade()
       SC.setCurrentScene(Scenes.END_OF_GAME)
       G.resetCurrDiagNum()
       return
     end
   elseif cs == Scenes.END_OF_GAME then
-    if key == "return" then
+    if key == "return"  or key == "kpenter" then
       SC.setFade()
       SC.setCurrentScene(Scenes.GAME_OVER)
       return
@@ -143,8 +155,15 @@ function TE.handleKeyPressed(key)
     return
   end
   
+  if cs == Scenes.INTRO_COMIC1 or cs == Scenes.INTRO_COMIC2 or cs == Scenes.INTRO_COMIC3 then
+    if key == "return"  or key == "kpenter" then
+      SC.incrementComic()
+    end
+    return
+  end
+  
   if cs == Scenes.INTRO_BRIEFING or cs == Scenes.DEBRIEFING_1 then
-    if key == "return" then
+    if key == "return"  or key == "kpenter" then
       text = text:lower()
       charCount = 0
       love.keyboard.setTextInput(true)
@@ -156,7 +175,7 @@ function TE.handleKeyPressed(key)
   end
   
   if cs == Scenes.TITLE then
-    if key == "return" then
+    if key == "return"  or key == "kpenter" then
       SC.setCurrentScene(Scenes.INTRO_BRIEFING)
     end
     return
@@ -164,7 +183,7 @@ function TE.handleKeyPressed(key)
   
   if cs == Scenes.INTRO_BRIEFING then
     text = string.gsub(text, '%s+', '')
-    if key == "return" then
+    if key == "return"  or key == "kpenter" then
       if text == "next" then
         dialogNum = dialogNum + 1
         text = ""
@@ -174,13 +193,13 @@ function TE.handleKeyPressed(key)
       elseif text == "ready" then
         dialogNum = 5
         text = ""
-        SC.setCurrentScene(Scenes.INTRO_COMIC)
+        SC.setCurrentScene(Scenes.INTRO_COMIC1)
       end
       G.resetCurrDiagNum()
     end
     return
   elseif cs == Scenes.DEBRIEFING_1 then
-    if key == "return" then
+    if key == "return"  or key == "kpenter" then
       if text == "okay" then
         shouldDisplayHint = false
         triedAnswer = false
@@ -252,10 +271,14 @@ function TE.handleKeyPressed(key)
     text = ""
     SC.executeAction("reset")
     S.clearSuggestions()
+  elseif key == "up" or key == "down" then
+    TE.handleCommandHistory(key)
+    return
   elseif key == "tab" then
     --do nothing else
-  elseif key == "return" then
+  elseif key == "return" or key == "kpenter" then
     --check for special commands
+    table.insert(commandHistory, 1, text)
     if text == "help" then
       SC.executeAction("help")
     elseif text == "notes" then
@@ -266,6 +289,7 @@ function TE.handleKeyPressed(key)
     S.clearSuggestions()
     TE.lopOffEndOfTable()
     table.insert(textHistory, 1, ">> " .. text)
+    commandHistoryPosition = 0
     local add = G.checkMatches(text)
     table.insert(textHistory, 1, add)
     charCount = 0
@@ -289,6 +313,21 @@ function TE.handleKeyPressed(key)
   end
   
   return cs
+end
+
+function TE.handleCommandHistory(k)
+  
+  if k == "up" and commandHistoryPosition < #commandHistory then
+    commandHistoryPosition = commandHistoryPosition + 1
+    text = commandHistory[commandHistoryPosition]
+  elseif k == "down" and commandHistoryPosition > 1 then
+    commandHistoryPosition = commandHistoryPosition - 1
+    text = commandHistory[commandHistoryPosition]
+  elseif k == "down" and commandHistoryPosition == 1 then
+    commandHistoryPosition = 0
+    text = ""
+  end
+  
 end
 
 function TE.textInput(t)

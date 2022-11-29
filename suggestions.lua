@@ -54,7 +54,11 @@ function S.updateSuggestions(t)
   suggestions = {}
   local startSuggsAt = 0
   
-  t = t:gsub("[^[:alnum:][:space:]]","")
+  if t ~= nil and #t > 0 then
+    t = t:gsub("[^[:alnum:][:space:]]","")
+  else
+    return
+  end
   
   local suggTable = {}
   if movedToNouns then

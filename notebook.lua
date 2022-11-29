@@ -7,21 +7,42 @@ local clues =
   tickets = "There are two tickets to the opera on February 15 tacked to the board. The stubs are not torn.",
   flower = "The flower in the vase on the desk appears fresh, but is actually just plastic.", 
   key = "Sparrow's car keys are still at home.",
-  linedPaper = "Sparrow had a large list of perishable groceries on her shopping list.",
+  linedPaper = "Sparrow had a lot of perishable groceries on her shopping list.",
   postIts = "There's some sort of code involving numbers on the postit notes on the whiteboard.", 
-  guide = "Sparrow had a guide to Alaska's best hikes in her chest.", 
+  guide = "Sparrow has an Alaskan hiking guide in her chest.", 
   garbage = "The food-related garbage in the can is starting to rot.", 
   answeringMachine = "There are several messages on the machine.",
   backpack = "The backpack in the chest has never been used, but seems meant for a long trip.", 
   painting = "The painting is of Sparrow hiking in the mountains.",
-  calendar = "There are several appointments on the calendar.", 
+  calendar = "The calendar has many appointments throughout.", 
   map = "The map has some letters circled across its quadrants.", 
-  stickers = "The stickers across the chest have numbers and letters on them. Do they mean something?",
-  letter = "There's a threatening letter to 'Jean' from someone named Spider.", 
-  receipt = "Sparrow purchased lots of camping supplies on February 13.", 
-  envelope = "The envelope has no return address but is addressed to Jean Cabot.",
-  boots = "The boots have been broken in but there's no trace of mud on them.",
-  carpet = "The apartment is tidy, so why is there a big rip in the carpet?"
+  stickers = "Some of the stickers across the chest have numbers and letters on them.",
+  letter = "There's a threatening letter to 'Jean' from a 'Spider.' What a weird name.", 
+  receipt = "Sparrow purchased camping supplies on February 13.", 
+  envelope = "The envelope is addressed to 'Jean Cabot.'",
+  boots = "The boots are broken in but have no traces of mud.",
+  carpet = "The apartment is exceptionally tidy, so why is there a big rip in the carpet?"
+}
+
+local foundCluesTest = {"There's a photo of Sparrow on the board with a caption that reads 'My brother W.S.' She looks anxious.",
+  "There are two tickets to the opera on February 15 tacked to the board. The stubs are not torn.",
+  "The flower in the vase on the desk appears fresh, but is actually just plastic.", 
+  "Sparrow's car keys are still at home.",
+  "Sparrow had a lot of perishable groceries on her shopping list.",
+  "There's some sort of code involving numbers on the postit notes on the whiteboard.", 
+  "Sparrow has an Alaskan hiking guide in her chest.", 
+  "The food-related garbage in the can is starting to rot.", 
+  "There are several messages on the machine.",
+  "The backpack in the chest has never been used, but seems meant for a long trip.", 
+  "The painting is of Sparrow hiking in the mountains.",
+  "The calendar has many appointments throughout.", 
+  "The map has some letters circled across its quadrants.", 
+  "Some of the stickers across the chest have numbers and letters on them.",
+  "There's a threatening letter to 'Jean' from a 'Spider.'", 
+  "Sparrow purchased camping supplies on February 13.", 
+  "The envelope is addressed to 'Jean Cabot'.",
+  "The boots are broken in but have no traces of mud.",
+  "The apartment is exceptionally tidy, so why is there a big rip in the carpet?"
 }
 
 local foundClues = {}
@@ -30,11 +51,18 @@ local foundClues = {}
 function N.drawClues()
   
   if #foundClues > 0 then
-    local iter = 80
+    local iter = 116
+    local height = 40
+    --print("start")
     for k, v in ipairs(foundClues) do
-      local textLines = SC.getNumLines(v, 600)
-      lg.printf("- "..v, 580, iter + (20*textLines), 600, "left")
-      iter = iter + (textLines * 20)
+      --print(k .. " " ..#v)
+      if #v > 60 then
+        height = 40
+      else
+        height = 20
+      end
+      lg.printf("- "..v, 555, iter, 500, "left")
+      iter = iter + height
     end
   end
 

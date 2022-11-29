@@ -8,7 +8,7 @@ local scale, tx, ty
 Scenes = {
     TITLE_SCREEN = 1,
     INTRO_BRIEFING = 2,
-    INTRO_COMIC = 3,
+    INTRO_COMIC1 = 3,
     INVESTIGATION_1 = 4,
     NOTEBOOK = 5,
     DIARY = 6,
@@ -20,7 +20,9 @@ Scenes = {
     LETTER = 12,
     DOSSIER = 13,
     END_OF_GAME = 14,
-    POLICE_CALL = 15
+    POLICE_CALL = 15,
+    INTRO_COMIC2 = 16,
+    INTRO_COMIC3 = 17
 }
 
 function love.load()

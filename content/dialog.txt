@@ -2,7 +2,7 @@ Greetings, agent. Apologies for calling you in on such short notice on this bris
 It was the first such check-in in one month, so she could be anywhere. Her handler went to investigate, and now she's disappeared too. That's where you come in. We need to keep a low profile, so you'll be using the Fly Spy to enter Sparrow's home and look for clues.
 Because her handler has disappeared as well, you need to find clues to answer several questions about her actual name, what happened to her, and who's involved. You'll be able to read more about the case requirements while you're on your mission.
 You'll be navigating this mission using a text interface - no mouse required. Just like now! Are you ready? If so, type 'ready'. If not, type 'repeat' to hear this all from the top. I'm expecting good things from you, agent. Report back ASAP.
-You climb into the Fly Spy - a shrinkable drone meant to carry one field agent. State of the art, invented last year in 1997.
+You climb into the Fly Spy - a shrinkable drone meant to carry one field agent. State of the art.
 The Fly Spy shrinks down, readying you for your mission.
 Shrunk down and ready to investigate, your handler drops you off. You head for Sparrow's open window.
 Welcome back, agent. I'm hoping you have all the answers we need to get Sparrow back. If you aren't ready, you can type 'back' at any point to go back to the investigation. When you return here, you'll restart the debriefing. Are you ready? 
@@ -57,20 +57,18 @@ nil
 nil
 nil
 nil
-nil
-name
-name1
-what
-what1
-when
-when1
-who
-who1
-where
-where1
-streetnum
-streetnum1
-nil
+That name doesn't seem right. Make sure you are entering both first and last names! And you can always type 'hint' to get some help.
+(type "okay" to continue.)
+Are you *sure* that's what happened to Jean? If you are, try a synonym for what you are typing. If not, go look for more clues! You can always type 'hint' to get some help.
+(type "okay" to continue.)
+I don't think that matches with the timeline of events. Make sure you are only entering one number - the day of the month. And if you need a hint, type "hint"!
+(type "okay" to continue.)
+That's probably not who kidnapped Jean. Based on the evidence, who else do you think it might be? Remember, initials aren't enough, we need at least an alias! Type "hint" to get help if you're stuck.
+(type "okay" to continue.)
+Hmm, cross-referencing my map with that answer, it doesn't seem likely. If you're stuck, you can type "hint" to get some help.
+(type "okay" to continue.)
+Williams St. doesn't even have that street number, so that can't be right. Type "hint" for a clue if you're stuck!
+(type "okay" to continue.)
 nil
 nil
 nil
@@ -106,17 +104,18 @@ nil
 nil
 nil
 nil
-general
-general1
-name
-name1
-what
-what1
-when
-when1
-who
-who1
-where
-where1
-streetnum
-streetnum1
+nil
+If you're not sure where to start, check the dossier. It has a guide for what information you need to save Sparrow. Proceeding through the debriefing will give you access to new hints for each piece of information.
+(type "okay" to continue.)
+In order to learn Sparrow's real name, you can read it OR hear it!
+(type "okay" to continue.)
+There are a few possibilities, here. Given the contents of the chest, as well as the messages on the answering machine, what is the most likely? If you haven't opened the chest yet, the book on the desk will certainly shine some darkness on this matter.
+(type "okay" to continue.)
+To narrow down the window of disappearance, you can use the calendar in combination with the answering machine.
+(type "okay" to continue.)
+There are several hints to find out who kidnapped Sparrow. Start with the polaroid, the diary, and the letter.
+(type "okay" to continue.)
+Once you've shone some darkness on the issue, and you have the chest open, you should a clue. Those shapes look very familiar... and where else have we seen letters and numbers?
+(type "okay" to continue.)
+An answering machine message holds the key to this mystery.
+(type "okay" to continue.)

@@ -2,7 +2,7 @@ name: Fly Spy
 
 description: Investigate as a fly
 shortname: flyspy
-version: 1.0.0
+version: 1.0.1
 assets:
   - "*.lua"
   - assets/**/*

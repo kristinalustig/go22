@@ -13,3 +13,7 @@ play
 listen
 notes
 help
+plugin
+unplug
+stop
+code

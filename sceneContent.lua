@@ -14,6 +14,7 @@ local closedCurtains
 local lightOn
 local chestLid
 local pinkDrawerOpen
+local pinkDrawerOverlay
 local purpleDrawerOpen
 local map
 local calendar
@@ -47,7 +48,6 @@ local notebookFont
 
 local currentScene
 local midFade
-local comicNum
 
 --important "special" states for investigation 1. janky, I know.
 local pinkDrawerIsOpen
@@ -94,6 +94,7 @@ function SC.loadAssetsOnStart()
   lightOn = lg.newImage("/assets/light-rays.png")
   chestLid = lg.newImage("/assets/chest-lid.png")
   pinkDrawerOpen = lg.newImage("/assets/drawer-open-pink.png")
+  pinkDrawerOverlay = lg.newImage("/assets/pink-drawer-overlay.png")
   purpleDrawerOpen = lg.newImage("/assets/drawer-open-purple.png")
   diary = lg.newImage("/assets/diary.png")
   letter = lg.newImage("/assets/letter.png")
@@ -107,7 +108,7 @@ function SC.loadAssetsOnStart()
   endOfGame = lg.newImage("/assets/endOfGame.png")
   policeCall = lg.newImage("/assets/policeCall.png")
   
-  answeringMachine = love.audio.newSource("/assets/audio/clarinet.mp3", "stream")
+  answeringMachine = love.audio.newSource("/assets/audio/voicemails.mp3", "stream")
   tuneOne = love.audio.newSource("/assets/audio/clarinet.mp3", "stream")
   tuneTwo = love.audio.newSource("/assets/audio/sax.mp3", "stream")
   tuneTiming = 500
@@ -115,7 +116,6 @@ function SC.loadAssetsOnStart()
   lg.setFont(gameFont)
   consoleColor = {.65, .79, .35}
   midFade = 1
-  comicNum = 1
   errorText = "You shouldn't have been able to see this message."
   
   pinkDrawerIsOpen = false
@@ -150,6 +150,13 @@ function SC.getNumLines(t, w)
   
 end
 
+function SC.getNumLinesNotes(t, w)
+  
+  local _, text = notebookFont:getWrap(t, w)
+  return #text
+  
+end
+
 function SC.draw()
   
   if currentScene == Scenes.INVESTIGATION_1 then
@@ -172,6 +179,9 @@ function SC.draw()
       lg.draw(bgWithOverlay)
       if purpleDrawerIsOpen then
         lg.draw(bgWIthDrawerOpen)
+      end
+      if pinkDrawerIsOpen then
+        lg.draw(pinkDrawerOverlay)
       end
       if chestIsOpen then
         lg.draw(chestDisplay)
@@ -223,8 +233,10 @@ end
 
 function SC.incrementComic()
   
-  if comicNum < 3 then
-    comicNum = comicNum + 1
+  if currentScene == Scenes.INTRO_COMIC1 then
+    currentScene = Scenes.INTRO_COMIC2
+  elseif currentScene == Scenes.INTRO_COMIC2 then
+    currentScene = Scenes.INTRO_COMIC3
   else
     currentScene = Scenes.INVESTIGATION_1
   end
@@ -248,15 +260,15 @@ function SC.drawUi()
       lg.rectangle("fill", 0, 0, 1400, 700)
     end
     return
-  elseif currentScene == Scenes.INTRO_COMIC then
+  elseif currentScene == Scenes.INTRO_COMIC1 then
     midFade = 1
-    if comicNum == 1 then
-      lg.draw(comicPage1)
-    elseif comicNum == 2 then
-      lg.draw(comicPage2)
-    else
-      lg.draw(comicPage3)
-    end
+    lg.draw(comicPage1)
+    return
+  elseif currentScene == Scenes.INTRO_COMIC2 then
+    lg.draw(comicPage2)
+    return
+  elseif currentScene == Scenes.INTRO_COMIC3 then
+    lg.draw(comicPage3)
     return
   elseif currentScene == Scenes.DEBRIEFING_1 then
     lg.draw(briefingScreen)
@@ -325,6 +337,11 @@ function SC.setTextFont()
   lg.setFont(gameFont)
 end
 
+function SC.setComicFont()
+  lg.setColor(1, 1, 1)
+  lg.setFont(briefingFont)
+end
+
 function SC.setDialogFont()
   lg.setColor(0,0,0)
   lg.setFont(briefingFont)
@@ -375,9 +392,13 @@ end
 
 function SC.executeAction(action, obj, state)
   
-  if action == "1223" then
-    chestIsOpen = true
-    return ("You unlocked the chest!")
+  if obj == "code" then
+    if state == "1223" then
+      chestIsOpen = true
+      return ("You unlocked the chest!")
+    else
+      return ("That doesn't seem to be the correct combination.")
+    end
   end
   
   if action == "reset" then
@@ -399,7 +420,7 @@ function SC.executeAction(action, obj, state)
     item = obj
     isZoomed = true
     if objAdded then
-      return "(New clue added to your notes!)"
+      return "*New note added!*"
     else
       return "(Clue is already in your notes.)"
     end
