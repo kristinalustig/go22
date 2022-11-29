@@ -64,6 +64,8 @@ local isZoomed
 
 local answeringMachine
 
+isWeb = love.system.getOS() == "Web"
+
 function SC.loadAssetsOnStart()
   
   gameFont = lg.newFont("/assets/fonts/CourierPrime-Regular.ttf", 16)

@@ -25,7 +25,11 @@ function S.handleSuggestionState(t, key)
   if key == "space" then
     movedToNouns = true
     suggestionsPos = 0
-    return t
+    if isWeb then
+      return t.." " --wtf web version
+    else
+      return t
+    end
   elseif key == "tab" then
     if suggestionsPos >= #suggestions then
       suggestionsPos = 0
@@ -37,7 +41,7 @@ function S.handleSuggestionState(t, key)
   
   if suggestionsPos > 0 and suggestionsPos <= #suggestions then
     if movedToNouns then
-        local t = string.sub(t, 1, t:find(" ")).." "
+        local t = string.sub(t, 1, t:find(" "))
       return t ..suggestions[suggestionsPos]
     else
       return suggestions[suggestionsPos]
