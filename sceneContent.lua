@@ -126,7 +126,7 @@ function SC.loadAssetsOnStart()
   heardMachine = false
   machineIsPlaying = false
   
-  currentScene = Scenes.INVESTIGATION_1
+  currentScene = Scenes.TITLE
   tuneTwo:play()
   
 end
@@ -215,11 +215,9 @@ function SC.draw()
     lg.printf("PITTSBURG, CA 90107", 140, 900, 300, "left")
   elseif currentScene == Scenes.HELP then
     lg.setFont(dossierFont)
-    lg.setColor(0, 0, 0)
     lg.draw(helpScreen)
   elseif currentScene == Scenes.DOSSIER then
     lg.setFont(dossierFont)
-    lg.setColor(0, 0, 0)
     lg.draw(dossier)
   end
   
@@ -276,11 +274,20 @@ function SC.drawUi()
     return
   elseif currentScene == Scenes.GAME_OVER then
     lg.draw(endScreen)
-    lg.setFont(gameFont)
+    lg.setFont(briefingFont)
     lg.setColor(0, 0, 0, 1)
-    lg.printf("That's the end of the game!", 0, 200, 1400, "center")
-    lg.printf("Thank you so much for taking the time to play.", 0, 240, 1400, "center")
-    lg.printf("All code, art, music, and game design by kristinamay", 0, 280, 1400, "center")
+    lg.printf("That's the end of the game!", 0, 100, 1400, "center")
+    lg.printf("Thank you so much for taking the time to play.", 0, 140, 1400, "center")
+    lg.printf("All code, art, music, and game design by kristinamay", 0, 180, 1400, "center")
+    lg.printf("Voice acting by:", 0, 220, 1400, "center")
+    lg.printf("Fletcher as Chris, the hiker", 0, 260, 1400, "center")
+    lg.printf("David Haney as Dr. Henry", 0, 300, 1400, "center")
+    lg.printf("treezypoo as Sarah, the opera lover", 0, 340, 1400, "center")
+    lg.printf("Zach Frandsen as James, the date", 0, 380, 1400, "center")
+    lg.printf("kristinamay as Sparrow and handler", 0, 420, 1400, "center")
+    lg.printf("S. Pastrami Esq. as Carl, the chip eater", 0, 460, 1400, "center")
+    lg.printf("Sound effects from freesound.org (full details on itch.io page)", 0, 500, 1400, "center")
+    lg.printf("Special thanks to playtesters Matt, ______FILL IN", 0, 580, 1400, "center")
     return  
   elseif currentScene == Scenes.END_OF_GAME then
     lg.draw(endOfGame)
@@ -350,6 +357,10 @@ end
 function SC.setUiLabelFont()
   lg.setColor(1, 1, 1)
   lg.setFont(uiLabelFont)
+end
+
+function SC.setEndFont()
+  lg.setFont(briefingFont)
 end
 
 function SC.setFade()
@@ -513,6 +524,7 @@ function SC.handleSpecialActions(obj, state)
   end
   --desk drawers
   if obj == "pink desk drawer" then
+    item = "pink desk drawer"
     if (state == "close" and pinkDrawerIsOpen) or (state == "open" and not pinkDrawerIsOpen) then
       pinkDrawerIsOpen = not pinkDrawerIsOpen
       return "true"
@@ -532,6 +544,7 @@ function SC.handleSpecialActions(obj, state)
   end
   
   if obj == "purple desk drawer" then
+    item = "purple desk drawer"
     if (state == "close" and purpleDrawerIsOpen) or (state == "open" and not purpleDrawerIsOpen) then
       purpleDrawerIsOpen = not purpleDrawerIsOpen
       return "true"
@@ -641,6 +654,8 @@ function SC.updateDraw()
     transformX = 0
     transformY = 0
   end
+  
+  if scale > 4 then scale = 4 end
   
   return scale, transformX, transformY
   

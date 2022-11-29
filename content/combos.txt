@@ -156,7 +156,7 @@ use;pen;The Fly Spy’s navigation system is advanced, but not advanced enough t
 close;pink desk drawer;The Fly Spy nudges the drawer shut.;special;pink desk drawer;close
 inspect;pink desk drawer;It looks like she painted these drawers herself. Not locked.;zoom;desk;
 lock;pink desk drawer;There is no lock.;zoom;desk;
-open;pink desk drawer;Using the Fly Spy’s special grappling hook, you open the drawer.;special;pink desk drawer;open
+open;pink desk drawer;Using the Fly Spy’s special grappling hook, you open the drawer. Looks like some paint and a brush, hurriedly put away.;special;pink desk drawer;open
 press;pink desk drawer;The Fly Spy nudges the drawer shut.;special;pink desk drawer;close
 smell;pink desk drawer;It smells a bit dusty, that’s it.;zoom;desk;
 taste;pink desk drawer;Your Fly Spy Tasting Proboscis gets a little sampling of dust.;zoom;desk;

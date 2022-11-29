@@ -184,7 +184,7 @@ function TE.handleKeyPressed(key)
   if cs == Scenes.INTRO_BRIEFING then
     text = string.gsub(text, '%s+', '')
     if key == "return"  or key == "kpenter" then
-      if text == "next" then
+      if text == "next" and dialogNum < 4 then
         dialogNum = dialogNum + 1
         text = ""
       elseif text == "repeat" then
@@ -261,10 +261,6 @@ function TE.handleKeyPressed(key)
     return
   end
   
-  if cs == Scenes.INTRO_COMIC then
-    return
-  end
-  
   text = S.handleSuggestionState(text, key)
   
   if key == "escape" or text == "back" then
@@ -285,6 +281,10 @@ function TE.handleKeyPressed(key)
       SC.executeAction("notes")
     elseif text == "station" then
       SC.executeAction("station")
+    end
+    --if we're in another scene, in order to make stuff show up properly, we have to reset to the main scene first.
+    if cs == Scenes.NOTEBOOK or cs == Scenes.DOSSIER or cs == Scenes.HELP then
+      SC.executeAction("reset")
     end
     S.clearSuggestions()
     TE.lopOffEndOfTable()

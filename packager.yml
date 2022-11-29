@@ -1,4 +1,4 @@
-name: Fly Spy
+name: FlySpy
 
 description: Investigate as a fly
 shortname: flyspy
@@ -7,3 +7,10 @@ assets:
   - "*.lua"
   - assets/**/*
   - content/**/*
+
+targets:
+  - love
+  - web
+  - win-32
+  - win-64
+  - mac

@@ -109,14 +109,14 @@ function G.drawDialog(num)
   
   if scene == Scenes.INTRO_BRIEFING or scene == Scenes.DEBRIEFING_1 then
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 90, 120, 650, "left")
-  elseif scene == Scenes.INTRO_COMIC then
-    
   elseif scene == Scenes.POLICE_CALL then
     lg.setColor(1, 1, 1)
+    SC.setEndFont()
     lg.printf(G.dialog[num-1], 100, 200, 800, "center")
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 100, 400, 800, "left")
   elseif scene == Scenes.END_OF_GAME then
     lg.setColor(0, 0, 0)
+    SC.setEndFont()
     lg.printf(G.dialog[num]:sub(1, currentDialogPosition), 100, 200, 800, "left")
   end
   
@@ -127,9 +127,9 @@ function G.drawDialog(num)
       -----NEW FONT HERE
       lg.printf(G.dialog[num+1], 90, 380, 600, "left")
     elseif scene == Scenes.POLICE_CALL then
-      lg.printf(G.dialog[num+1], 90, 500, 600, "center")
+      lg.printf(G.dialog[num+1], 0, 580, 1400, "center")
     elseif scene == Scenes.END_OF_GAME then
-      lg.printf(G.dialog[num+1], 90, 500, 600, "center")
+      lg.printf(G.dialog[num+1], 0, 580, 1400, "center")
     else
       waitOnScreen = waitOnScreen - 1
       if waitOnScreen <= 0 then
