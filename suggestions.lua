@@ -37,7 +37,7 @@ function S.handleSuggestionState(t, key)
   
   if suggestionsPos > 0 and suggestionsPos <= #suggestions then
     if movedToNouns then
-      local t = string.sub(t, 1, t:find(" "))
+        local t = string.sub(t, 1, t:find(" ")).." "
       return t ..suggestions[suggestionsPos]
     else
       return suggestions[suggestionsPos]
@@ -64,7 +64,12 @@ function S.updateSuggestions(t)
   if movedToNouns then
     startSuggsAt = 1
     suggTable = G.nouns
-    t = string.sub(t, t:find(" ")+1)
+    local catchFirst = t:find(" ")
+    if catchFirst ~= nil then
+      t = string.sub(t, t:find(" ")+1)
+    else
+      return
+    end
   else
     suggTable = G.verbs
   end

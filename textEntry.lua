@@ -283,7 +283,7 @@ function TE.handleKeyPressed(key)
       SC.executeAction("station")
     end
     --if we're in another scene, in order to make stuff show up properly, we have to reset to the main scene first.
-    if cs == Scenes.NOTEBOOK or cs == Scenes.DOSSIER or cs == Scenes.HELP or SC.getZoomed() then
+    if cs == Scenes.NOTEBOOK or cs == Scenes.DOSSIER or cs == Scenes.HELP or cs == Scenes.MAP or cs == Scenes.DIARY or cs == Scenes.CALENDAR or SC.getZoomed() then
       SC.executeAction("reset")
     end
     S.clearSuggestions()
