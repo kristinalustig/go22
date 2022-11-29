@@ -137,7 +137,7 @@ function SC.loadAssetsOnStart()
   heardMachine = false
   machineIsPlaying = false
   
-  currentScene = Scenes.DEBRIEFING_1
+  currentScene = Scenes.TITLE
   
 end
 
@@ -587,7 +587,10 @@ function SC.handleSpecialActions(obj, state)
     elseif (state == "on" or state == "toggle") and not machineIsPlaying then
       heardMachine = true
       machineIsPlaying = true
-      love.audio.stop()
+      tuneOne:stop()
+      tuneTwo:stop()
+      debriefTune:stop()
+      endingTune:stop()
       answeringMachine:play()
       if state == "toggle" then
         return "You play the messages. (Turn up the sound to hear, or read them in your 'notes'.)"
@@ -619,18 +622,29 @@ function SC.updateDraw()
   if isMusicPlaying then
     if currentScene == Scenes.DEBRIEFING_1 or currentScene == Scenes.POLICE_CALL then
       if lastPlayed ~= debriefTune then
-        love.audio.stop()
+        tuneOne:stop()
+        tuneTwo:stop()
+        debriefTune:stop()
+        endingTune:stop()
+        answeringMachine:stop()
         debriefTune:play()
         lastPlayed = debriefTune
       end
     elseif currentScene == Scenes.END_OF_GAME then
       if lastPlayed ~= endingTune then
-        love.audio.stop()
+        tuneOne:stop()
+        tuneTwo:stop()
+        debriefTune:stop()
+        endingTune:stop()
+        answeringMachine:stop()
         endingTune:play()
         lastPlayed = endingTune
       end
     elseif not tuneOne:isPlaying() and not tuneTwo:isPlaying() and not machineIsPlaying then
-      love.audio.stop()
+      tuneOne:stop()
+      tuneTwo:stop()
+      debriefTune:stop()
+      endingTune:stop()
       tuneTiming = tuneTiming - 1
       if tuneTiming <= 0 then
         tuneTiming = 500

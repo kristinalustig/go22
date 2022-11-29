@@ -141,7 +141,7 @@ listen;messages;You play the messages. (Turn up the sound to hear, or read them 
 play;messages;You play the messages. (Turn up the sound to hear, or read them in your 'notes'.);special;answering machine;on
 press;messages;You play the messages. (Turn up the sound to hear, or read them in your 'notes'.);special;answering machine;toggle
 read;messages;Looks like there are some new messages. (Type ‘play messages’ to hear.);zoom;desk;
-stop;messages;You stop the messages.;special;answering machine;toggle
+stop;messages;You stop the messages.;special;answering machine;off
 smell;messages;You cannot smell digital media.;zoom;desk;
 taste;messages;You cannot taste digital media. If only. Maybe someday.;zoom;desk;
 turnoff;messages;You stop the messages playing.;special;answering machine;off

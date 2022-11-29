@@ -63,9 +63,10 @@ end
 function G.checkMatches(t)
 
   local noun = ""
-  if t:find(" ") then
-    noun = t:sub(t:find(" ")+1, #t)
-    print(noun)
+  if t ~= "" and t ~= nil then
+    if t:find(" ") then
+      noun = t:sub(t:find(" ")+1, #t)
+    end
   end
 
   local needsReplacement = G.checkNouns(noun)
