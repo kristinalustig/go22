@@ -52,6 +52,8 @@ function G.checkNouns(n)
     return "corkboard"
   elseif n == "photo" or n == "snapshot" then
     return "polaroid"
+  elseif n == "sticky notes" or n == "stickies" or n == "post-its" then
+    return "postits"
   end
   
   return n

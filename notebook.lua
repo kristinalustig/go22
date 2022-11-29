@@ -5,63 +5,63 @@ N = {}
 local clues = 
 {polaroid = "There's a photo of Sparrow on the board with a caption that reads 'My brother W.S.' She looks anxious.",
   tickets = "There are two tickets to the opera on February 15 tacked to the board. The stubs are not torn.",
-  flower = "The flower in the vase on the desk appears fresh, but is actually just plastic.", 
-  key = "Sparrow's car keys are still at home.",
-  linedPaper = "Sparrow had a lot of perishable groceries on her shopping list.",
-  postIts = "There's some sort of code involving numbers on the postit notes on the whiteboard.", 
+  flower = "The flower in the vase seems fresh, but it's just plastic.", 
+  key = "Sparrow's car keys are still at home, so wherever she is, she didn't bring her car.",
+  linedPaper = "Sparrow had a lot of perishable groceries on her shopping list. She wasn't planning on going anywhere.",
+  postIts = "There's some sort of code involving numbers on the post-it notes on the whiteboard.", 
   guide = "Sparrow has an Alaskan hiking guide in her chest.", 
   garbage = "The food-related garbage in the can is starting to rot.", 
-  answeringMachine = "There are several messages on the machine.",
+  answeringMachine = "There are several messages on the machine. I wrote down the transcripts here.",
   backpack = "The backpack in the chest has never been used, but seems meant for a long trip.", 
-  painting = "The painting is of Sparrow hiking in the mountains.",
+  painting = "The painting is of Sparrow hiking in the mountains, she seems to really love that.",
   calendar = "The calendar has many appointments throughout.", 
   map = "The map has some letters circled across its quadrants.", 
-  stickers = "Some of the stickers across the chest have numbers and letters on them.",
+  stickers = "The stickers on the chest have numbers and letters on them.",
   letter = "There's a threatening letter to 'Jean' from a 'Spider.' What a weird name.", 
   receipt = "Sparrow purchased camping supplies on February 13.", 
   envelope = "The envelope is addressed to 'Jean Cabot.'",
   boots = "The boots are broken in but have no traces of mud.",
-  carpet = "The apartment is exceptionally tidy, so why is there a big rip in the carpet?"
+  carpet = "The apartment is exceptionally tidy, so why is there a big rip in the carpet? Did something happen here?"
 }
 
 local foundCluesTest = {"There's a photo of Sparrow on the board with a caption that reads 'My brother W.S.' She looks anxious.",
   "There are two tickets to the opera on February 15 tacked to the board. The stubs are not torn.",
-  "The flower in the vase on the desk appears fresh, but is actually just plastic.", 
-  "Sparrow's car keys are still at home.",
-  "Sparrow had a lot of perishable groceries on her shopping list.",
-  "There's some sort of code involving numbers on the postit notes on the whiteboard.", 
+  "The flower in the vase seems fresh, but it's just plastic.", 
+  "Sparrow's car keys are still at home, so wherever she is, she didn't bring her car.",
+  "Sparrow had a lot of perishable groceries on her shopping list. She wasn't planning on going anywhere.",
+  "There's some sort of code involving numbers on the post-it notes on the whiteboard.", 
   "Sparrow has an Alaskan hiking guide in her chest.", 
-  "The food-related garbage in the can is starting to rot.", 
-  "There are several messages on the machine.",
+  "The food remains in the can are starting to rot, it's been there for a while.", 
+  "There are several messages on the machine. I wrote down the transcripts here.",
   "The backpack in the chest has never been used, but seems meant for a long trip.", 
-  "The painting is of Sparrow hiking in the mountains.",
+  "The painting is of Sparrow hiking in the mountains, she seems to really love that.",
   "The calendar has many appointments throughout.", 
   "The map has some letters circled across its quadrants.", 
-  "Some of the stickers across the chest have numbers and letters on them.",
+  "The stickers on the chest have numbers and letters on them.",
   "There's a threatening letter to 'Jean' from a 'Spider.'", 
   "Sparrow purchased camping supplies on February 13.", 
   "The envelope is addressed to 'Jean Cabot'.",
   "The boots are broken in but have no traces of mud.",
-  "The apartment is exceptionally tidy, so why is there a big rip in the carpet?"
+  "The apartment is exceptionally tidy, so why is there a big rip in the carpet? Did something happen here?"
 }
 
-local foundClues = {}
+local foundClues = foundCluesTest
 
 
 function N.drawClues()
   
   if #foundClues > 0 then
-    local iter = 116
+    local iter = 96
     local height = 40
     --print("start")
     for k, v in ipairs(foundClues) do
       --print(k .. " " ..#v)
-      if #v > 60 then
+      if #v > 70 then
         height = 40
       else
         height = 20
       end
-      lg.printf("- "..v, 555, iter, 500, "left")
+      lg.printf("- "..v, 480, iter, 580, "left")
       iter = iter + height
     end
   end
