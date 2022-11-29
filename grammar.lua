@@ -58,6 +58,8 @@ function G.checkNouns(n)
     return "pink desk drawer"
   elseif n == "right desk drawer" then
     return "purple desk drawer"
+  elseif n == "diary" or n == "journal" then
+    return "book"
   end
   
   return n
